@@ -1,0 +1,21 @@
+{
+    "auth": {
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "phone": "Phone",
+        "passwordConfirm": "Confirm Password",
+        "alreadyRegistered": "Already registered?",
+        "register": "Register",
+        "login": "Log in",
+        "rememberMe": "Remember me",
+        "forgotPass": "Forgot your password?",
+        "resetPass": "Reset Password",
+        "forgotPassMsg": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
+        "emailLink": "Email Password Reset Link",
+        "confirmMsg": " This is a secure area of the application. Please confirm your password before continuing."
+    },
+    "common": {
+        "confirm": "Confirm"
+    }
+}
