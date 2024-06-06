@@ -11,11 +11,11 @@ export default {
     ],
 
     theme: {
-        colors: {
-            green: "#00AD30",
-            grayDark: "#181818",
-        },
         extend: {
+            colors: {
+                green: "#00AD30",
+                grayDark: "#181818",
+            },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },

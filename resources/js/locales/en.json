@@ -15,7 +15,47 @@
         "emailLink": "Email Password Reset Link",
         "confirmMsg": " This is a secure area of the application. Please confirm your password before continuing."
     },
+    "restaurants": {
+        "empty": "You are not managing any restaurants, would you like to create one?",
+        "create": "Create a new Restaurant",
+        "form": {
+            "name": "Name",
+            "address": "Address",
+            "checkAddress": "Check Address",
+            "worktimeSame": "Worktime same for every day.",
+            "from": "From:",
+            "to": "To:",
+            "image": "Image"
+        },
+        "errors": {
+            "invalidAddress": "Address is invalid"
+        }
+    },
+    "nav": {
+        "links": {
+            "profile": "Profile",
+            "dashboard": "Dashboard",
+            "logout": "Log Out",
+            "my-restaurants.index": "My Establishments"
+        }
+    },
+    "meta": {
+        "titles": {
+            "dashboard": "Dashboard",
+            "myEstablishments": "My Establishments"
+        }
+    },
     "common": {
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "create": "Create"
+    },
+    "days": {
+        "0": "Sunday",
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday",
+        "6": "Saturday"
     }
 }
