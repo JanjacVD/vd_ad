@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->unsignedBigInteger("restaurant_id")->nullable();
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
 
-            $table->unsignedBigInteger("restaurant_tag_id")->nullable();
-            $table->foreign('restaurant_tag_id')->references('id')->on('restaurant_tags');
+            $table->unsignedBigInteger("tag_id")->nullable();
+            $table->foreign('tag_id')->references('id')->on('tags');
         });
     }
 

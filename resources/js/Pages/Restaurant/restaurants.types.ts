@@ -1,5 +1,20 @@
-export type Restaurant = {};
-export type Tag = {};
+export type Restaurant = {
+    id: string;
+    name: string;
+    img: string;
+    confirmed: boolean;
+    address: Address;
+    is_open: boolean;
+    is_accepting_deliveries: boolean;
+    delivery_fee: number;
+    work_days: WorktimeSchedule;
+    tags: Tag[];
+};
+export type Tag = {
+    id: number;
+    img: string;
+    name: string;
+};
 
 export type Address = {
     place_id: string;
@@ -11,11 +26,13 @@ export type Address = {
 export type RestaurantForm = {
     name: string;
     address?: Address;
-    worktime: WorktimeSchedule;
+    work_days: WorktimeSchedule;
     img: File | null;
+    tags: number[];
 };
 
 export type Worktime = {
+    day: number;
     isWorking: boolean;
     from: string;
     to: string;

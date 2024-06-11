@@ -10,5 +10,10 @@ class Tag extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['img', 'name'];
+    protected $fillable = [
+        'img',
+        'name',
+    ];
+
+    public $translatable = ['name'];
 }

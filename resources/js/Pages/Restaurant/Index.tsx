@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import { Restaurant } from "./restaurants.types";
 import NavlinkPrimary from "@/Components/NavlinkPrimary";
+import RestaurantCard from "./components/RestaurantCard";
 
 type TProps = PageProps<{ restaurants: Restaurant[] }>;
 const RestaurantIndex = ({ auth, restaurants }: TProps) => {
@@ -24,6 +25,14 @@ const RestaurantIndex = ({ auth, restaurants }: TProps) => {
                     </NavlinkPrimary>
                 </div>
             )}
+            <div className="flex flex-col p-20">
+                {restaurants.map((restaurant) => (
+                    <RestaurantCard
+                        key={restaurant.id}
+                        restaurant={restaurant}
+                    />
+                ))}
+            </div>
         </AuthenticatedLayout>
     );
 };

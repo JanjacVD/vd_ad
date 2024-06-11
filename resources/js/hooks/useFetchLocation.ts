@@ -46,9 +46,15 @@ const useFetchLocation = () => {
             }
         );
     };
+    const clearMap = (ref: React.RefObject<HTMLDivElement>) => {
+        if (ref.current) {
+            ref.current.innerHTML = ""; // Clear the map container
+        }
+    };
     return {
         isLoading,
         fetchLocation,
+        clearMap,
     };
 };
 export default useFetchLocation;

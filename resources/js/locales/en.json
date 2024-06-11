@@ -23,12 +23,26 @@
             "address": "Address",
             "checkAddress": "Check Address",
             "worktimeSame": "Worktime same for every day.",
+            "worktime": "Worktime",
             "from": "From:",
             "to": "To:",
-            "image": "Image"
+            "image": "Image",
+            "tags": "Tags",
+            "clearAddress": "Clear Address"
         },
         "errors": {
             "invalidAddress": "Address is invalid"
+        },
+        "list": {
+            "confirmed": "Confirmed:",
+            "isWorking": "Is working:",
+            "close": "Stop working",
+            "open": "Start working",
+            "menu": "Menu"
+        },
+        "alerts": {
+            "deleteDesc": "All info about the restaurant will be lost.",
+            "delete": "Are you sure you want to delete the restaurant?"
         }
     },
     "nav": {
@@ -47,7 +61,10 @@
     },
     "common": {
         "confirm": "Confirm",
-        "create": "Create"
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel"
     },
     "days": {
         "0": "Sunday",
