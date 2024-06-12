@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps } from "@/types";
-import { useForm } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { Restaurant, RestaurantForm, Tag } from "./restaurants.types";
 import InputLabel from "@/Components/InputLabel";
 import { FormEventHandler, useRef, useState } from "react";
@@ -17,8 +17,7 @@ import { initWorktime } from "@/data/worktime";
 type TProps = PageProps<{ tags: Tag[]; restaurant?: Restaurant }>;
 
 const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
-    console.log(restaurant?.work_days);
-    const { data, setData, setError, post, processing, errors, reset } =
+    const { data, setData, setError, post, put, processing, errors } =
         useForm<RestaurantForm>(
             restaurant
                 ? {
@@ -36,7 +35,11 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
     const { t } = useTranslation();
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route("my-restaurants.store"));
+        if (restaurant?.id) {
+            put(route("my-restaurants.update", restaurant.id));
+        } else {
+            post(route("my-restaurants.store"));
+        }
     };
     const [address, setAddress] = useState(
         restaurant?.address.formatted_address ?? ""
@@ -50,7 +53,7 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
     };
     const handleLocationFetch = async () => {
         try {
-            fetchLocation("Kamila Pamukovica 96 vodice", mapRef, (add) =>
+            await fetchLocation(address, mapRef, (add) =>
                 setData("address", add)
             );
         } catch (e) {
@@ -68,8 +71,15 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
     };
     return (
         <AuthenticatedLayout user={auth.user}>
+            <Head
+                title={
+                    restaurant
+                        ? t("meta.titles.restaurant.update")
+                        : t("meta.titles.restaurant.create")
+                }
+            />
             <h1 className="text-2xl font-semibold w-full text-center mt-5">
-                {t("restaurants.create")}
+                {restaurant ? t("restaurants.update") : t("restaurants.create")}
             </h1>
             <form onSubmit={submit} className="w-full m-auto mt-10 p-20">
                 <div>
@@ -163,6 +173,7 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
                 </div>
 
                 <WorktimeInput
+                    mode={restaurant?.id ? "edit" : "create"}
                     data={data.work_days}
                     setData={(worktime) => setData("work_days", worktime)}
                 />
@@ -189,7 +200,7 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
                         className="ms-4"
                         disabled={processing || !data.address}
                     >
-                        {t("common.confirm")}
+                        {t("common.save")}
                     </PrimaryButton>
                 </div>
             </form>

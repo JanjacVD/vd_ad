@@ -32,17 +32,15 @@ export type RestaurantForm = {
 };
 
 export type Worktime = {
-    day: number;
-    isWorking: boolean;
     from: string;
     to: string;
 };
 export type WorktimeSchedule = {
-    0?: Worktime;
-    1?: Worktime;
-    2?: Worktime;
-    3?: Worktime;
-    4?: Worktime;
-    5?: Worktime;
-    6?: Worktime;
+    mon?: Worktime | null;
+    tue?: Worktime | null;
+    wed?: Worktime | null;
+    thu?: Worktime | null;
+    fri?: Worktime | null;
+    sat?: Worktime | null;
+    sun?: Worktime | null;
 };

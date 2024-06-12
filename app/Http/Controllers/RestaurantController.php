@@ -10,6 +10,7 @@ use App\Models\Restaurant;
 use App\Models\Tag;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class RestaurantController extends Controller
@@ -40,7 +41,6 @@ class RestaurantController extends Controller
     public function store(StoreRestaurantRequest $request)
     {
         $validated = $request->validated();
-
         if ($request->hasFile('img')) {
             $path = str_replace('public/images/', '', $request->file('img')->store('public/images'));
             $validated['img'] = $path;
@@ -54,7 +54,7 @@ class RestaurantController extends Controller
             'work_days' => json_encode($validated['work_days']),
             'img' => $validated['img'] ?? null,
         ]);
-
+        $restaurant->worktime()->create($validated['work_days']);
         if (isset($validated['tags'])) {
             $restaurant->tags()->sync($validated['tags']);
         }
@@ -84,9 +84,36 @@ class RestaurantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Restaurant $restaurant)
+    public function update(StoreRestaurantRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $restaurant = Restaurant::with('address')->findOrFail($id);
+        if ($request->hasFile('img')) {
+            // Delete the old image if it exists
+            if ($restaurant->img) {
+                Storage::delete('public/images/' . $restaurant->img);
+            }
+            $path = str_replace('public/images/', '', $request->file('img')->store('public/images'));
+            $validated['img'] = $path;
+        }
+        $address = $validated['address'];
+        $addressIsSame = $restaurant->address->place_id === $address['place_id'];
+        $addId = $restaurant->address->id;
+        if (!$addressIsSame) {
+            $newAdd = Address::create($validated['address']);
+            $addId = $newAdd->id;
+        }
+        $restaurant->update([
+            'name' => $validated['name'],
+            'address_id' => $addId,
+            'work_days' => json_encode($validated['work_days']),
+            'img' => $validated['img'] ?? $restaurant->img,
+        ]);
+        if (isset($validated['tags'])) {
+            $restaurant->tags()->sync($validated['tags']);
+        }
+
+        return redirect(route('my-restaurants.index'));
     }
 
     /**

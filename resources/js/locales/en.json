@@ -18,6 +18,7 @@
     "restaurants": {
         "empty": "You are not managing any restaurants, would you like to create one?",
         "create": "Create a new Restaurant",
+        "update": "Update your Restaurant info",
         "form": {
             "name": "Name",
             "address": "Address",
@@ -56,7 +57,11 @@
     "meta": {
         "titles": {
             "dashboard": "Dashboard",
-            "myEstablishments": "My Establishments"
+            "myEstablishments": "My Establishments",
+            "restaurant": {
+                "create": "Create a new Restaurant",
+                "update": "Update your Restaurant info"
+            }
         }
     },
     "common": {
@@ -64,15 +69,17 @@
         "create": "Create",
         "edit": "Edit",
         "delete": "Delete",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "save": "Save",
+        "add": "Add"
     },
     "days": {
-        "0": "Sunday",
-        "1": "Monday",
-        "2": "Tuesday",
-        "3": "Wednesday",
-        "4": "Thursday",
-        "5": "Friday",
-        "6": "Saturday"
+        "sun": "Sunday",
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday",
+        "sat": "Saturday"
     }
 }
