@@ -25,15 +25,17 @@ const RestaurantIndex = ({ auth, restaurants }: TProps) => {
                     </NavlinkPrimary>
                 </div>
             )}
-            <div className="flex flex-col p-20">
-                <div>
-                    <NavlinkPrimary
-                        className=" bg-blue-500 text-white font-semibold px-3 py-2 rounded-md"
-                        href={route("my-restaurants.create")}
-                    >
-                        {t("common.add")}
-                    </NavlinkPrimary>
-                </div>
+            <div className="flex flex-col p-3 lg:p-20">
+                {restaurants.length > 0 && (
+                    <div>
+                        <NavlinkPrimary
+                            className=" bg-blue-500 text-white font-semibold px-3 py-2 rounded-md"
+                            href={route("my-restaurants.create")}
+                        >
+                            {t("common.add")}
+                        </NavlinkPrimary>
+                    </div>
+                )}
                 {restaurants.map((restaurant) => (
                     <RestaurantCard
                         key={restaurant.id}

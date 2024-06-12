@@ -17,7 +17,7 @@ import { initWorktime } from "@/data/worktime";
 type TProps = PageProps<{ tags: Tag[]; restaurant?: Restaurant }>;
 
 const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
-    const { data, setData, setError, post, put, processing, errors } =
+    const { data, setData, setError, post, processing, errors } =
         useForm<RestaurantForm>(
             restaurant
                 ? {
@@ -36,9 +36,11 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         if (restaurant?.id) {
-            put(route("my-restaurants.update", restaurant.id));
+            post(route("my-restaurants.update", restaurant.id), {
+                forceFormData: true,
+            });
         } else {
-            post(route("my-restaurants.store"));
+            post(route("my-restaurants.store"), { forceFormData: true });
         }
     };
     const [address, setAddress] = useState(
@@ -81,7 +83,11 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
             <h1 className="text-2xl font-semibold w-full text-center mt-5">
                 {restaurant ? t("restaurants.update") : t("restaurants.create")}
             </h1>
-            <form onSubmit={submit} className="w-full m-auto mt-10 p-20">
+            <form
+                onSubmit={submit}
+                className="w-full m-auto mt-10 p-20"
+                encType="multipart/form-data"
+            >
                 <div>
                     <InputLabel
                         htmlFor="address"
@@ -180,7 +186,7 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
 
                 <div className="mt-5 ">
                     <InputLabel
-                        htmlFor="img"
+                        htmlFor="tags"
                         value={t("restaurants.form.tags")}
                     />
                     <div className="flex items-center">

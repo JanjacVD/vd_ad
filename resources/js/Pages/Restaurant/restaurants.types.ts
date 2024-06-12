@@ -1,5 +1,5 @@
 export type Restaurant = {
-    id: string;
+    id: number;
     name: string;
     img: string;
     confirmed: boolean;

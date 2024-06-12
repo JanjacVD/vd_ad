@@ -46,6 +46,16 @@
             "delete": "Are you sure you want to delete the restaurant?"
         }
     },
+    "categories": {
+        "empty": "No categories for this restaurant, would you like to create one?",
+        "create": "Create a new Category",
+        "update": "Update Category",
+        "gotoItems": "See Items",
+        "alerts": {
+            "deleteDesc": "All data will be lost.",
+            "delete": "Are you sure you want to delete the category?"
+        }
+    },
     "nav": {
         "links": {
             "profile": "Profile",
@@ -61,8 +71,17 @@
             "restaurant": {
                 "create": "Create a new Restaurant",
                 "update": "Update your Restaurant info"
+            },
+            "categories": {
+                "index": "Categories",
+                "create": "Create a Category",
+                "update": "Update a Category"
             }
         }
+    },
+    "locales": {
+        "en": "English",
+        "hr": "Croatian"
     },
     "common": {
         "confirm": "Confirm",

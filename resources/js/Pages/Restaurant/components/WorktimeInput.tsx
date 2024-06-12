@@ -63,7 +63,6 @@ const WorktimeInput = ({
             },
         });
     };
-    useEffect(() => console.log(data), [data]);
     return (
         <div className="mt-4">
             <p className="pb-2">{t("restaurants.form.worktime")}</p>

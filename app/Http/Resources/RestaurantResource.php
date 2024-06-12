@@ -25,6 +25,7 @@ class RestaurantResource extends JsonResource
             'work_days' => json_decode($this->work_days),
             'tags' => $this->whenLoaded('tags', TagResource::collection($this->tags)),
             'address' => $this->whenLoaded('address', $this->address),
+            'categories' => $this->whenLoaded('categories', CategoryResource::collection($this->categories)),
         ];
     }
 }

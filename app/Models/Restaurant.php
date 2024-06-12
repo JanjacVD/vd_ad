@@ -29,9 +29,11 @@ class Restaurant extends Model
         return $this->belongsTo(Address::class);
     }
 
-    public function worktime()
+    public function categories()
     {
-        return $this->hasOne(WorkTime::class);
+        return $this->hasMany(Categories::class);
     }
+
+
     use HasFactory;
 }

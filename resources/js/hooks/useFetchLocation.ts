@@ -28,7 +28,6 @@ const useFetchLocation = () => {
                         ref.current as Element,
                         mapOptions
                     );
-                    console.log(map);
                     new google.maps.Marker({
                         position: results[0].geometry.location,
                         map: map,

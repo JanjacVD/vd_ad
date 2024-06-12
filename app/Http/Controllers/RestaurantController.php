@@ -54,7 +54,6 @@ class RestaurantController extends Controller
             'work_days' => json_encode($validated['work_days']),
             'img' => $validated['img'] ?? null,
         ]);
-        $restaurant->worktime()->create($validated['work_days']);
         if (isset($validated['tags'])) {
             $restaurant->tags()->sync($validated['tags']);
         }
@@ -76,6 +75,9 @@ class RestaurantController extends Controller
     public function edit($id)
     {
         $restaurant = Restaurant::with(['tags', 'address'])->findOrFail($id);
+        if ($restaurant->user_id != auth()->user()->id) {
+            abort(403);
+        }
         $tags = Tag::all();
         $collection = TagResource::collection($tags);
         return Inertia::render('Restaurant/Create', ['tags' => $collection, 'restaurant' => new RestaurantResource($restaurant)]);
@@ -88,6 +90,9 @@ class RestaurantController extends Controller
     {
         $validated = $request->validated();
         $restaurant = Restaurant::with('address')->findOrFail($id);
+        if ($restaurant->user_id != auth()->user()->id) {
+            abort(403);
+        }
         if ($request->hasFile('img')) {
             // Delete the old image if it exists
             if ($restaurant->img) {
@@ -112,7 +117,6 @@ class RestaurantController extends Controller
         if (isset($validated['tags'])) {
             $restaurant->tags()->sync($validated['tags']);
         }
-
         return redirect(route('my-restaurants.index'));
     }
 
@@ -129,6 +133,5 @@ class RestaurantController extends Controller
             $restaurant->delete();
             $restaurant->address()->delete();
         }
-        ;
     }
 }
