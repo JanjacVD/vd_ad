@@ -31,7 +31,7 @@ class Restaurant extends Model
 
     public function categories()
     {
-        return $this->hasMany(Categories::class);
+        return $this->hasMany(Category::class);
     }
 
 

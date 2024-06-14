@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Foundation\Application;
@@ -25,10 +26,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::resource('my-restaurants', RestaurantController::class)->except(['update']);
-    Route::resource('my-restaurants/{restaurant}/categories', CategoriesController::class)->except(['update']);
+    Route::resource('my-restaurants/{restaurant}/categories', CategoryController::class)->except(['update']);
 
     Route::post('my-restaurants/{restaurant}', [RestaurantController::class, 'update'])->name('my-restaurants.update');
-    Route::post('my-restaurants/{restaurant}/categories/{category}', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::post('my-restaurants/{restaurant}/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+
+    Route::resource('{category}/items', ItemController::class)->except(['update']);
+    // Route::post('{category}/items', [ItemsController::class . 'update'])->name('items.update');
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -37,4 +42,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require_once __DIR__ . '/auth.php';

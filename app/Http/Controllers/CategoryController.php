@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\RestaurantResource;
-use App\Models\Categories;
+use App\Models\Category;
 use App\Models\Restaurant;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -57,7 +56,7 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categories $categories)
+    public function show(Category $categories)
     {
         //
     }
@@ -71,7 +70,7 @@ class CategoriesController extends Controller
         if (!auth()->user()->id === $rest->user_id) {
             abort(403);
         }
-        $category = Categories::findOrFail($restaurant);
+        $category = Category::findOrFail($restaurant);
         return Inertia::render('Menu/Categories/Create', ['restaurantId' => $restaurant, 'category' => new CategoryResource($category)]);
     }
 
@@ -81,7 +80,7 @@ class CategoriesController extends Controller
     public function update(StoreCategoryRequest $request, $restaurantId)
     {
         $validated = $request->validated();
-        $category = Categories::with('restaurant')->findOrFail($request->id);
+        $category = Category::with('restaurant')->findOrFail($request->id);
         if ($request->hasFile('img')) {
             // Delete the old image if it exists
             if ($category->img) {
@@ -102,7 +101,7 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $category = Categories::with('restaurant')->findOrFail($id);
+        $category = Category::with('restaurant')->findOrFail($id);
         if (!auth()->user()->id === $category->restaurant->user_id) {
             abort(403);
         }

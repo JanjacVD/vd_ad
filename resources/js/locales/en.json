@@ -56,6 +56,19 @@
             "delete": "Are you sure you want to delete the category?"
         }
     },
+    "items": {
+        "empty": "No items for this category, would you like to create one?",
+        "create": "Create a new Item",
+        "update": "Update Item",
+        "alerts": {
+            "deleteDesc": "All data will be lost.",
+            "delete": "Are you sure you want to delete the Item?"
+        },
+        "form": {
+            "description": "Description",
+            "price": "Price"
+        }
+    },
     "nav": {
         "links": {
             "profile": "Profile",
@@ -76,6 +89,11 @@
                 "index": "Categories",
                 "create": "Create a Category",
                 "update": "Update a Category"
+            },
+            "items": {
+                "index": "Items",
+                "create": "Create an Item",
+                "update": "Update an Item"
             }
         }
     },

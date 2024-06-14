@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Categories extends Model
+class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'img', 'restaurant_id', 'order'];
@@ -17,7 +17,7 @@ class Categories extends Model
 
     public function items()
     {
-        return $this->hasMany(Items::class);
+        return $this->hasMany(Item::class);
     }
 
     public function extras()
