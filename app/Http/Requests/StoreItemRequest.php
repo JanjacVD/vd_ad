@@ -11,7 +11,7 @@ class StoreItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,8 @@ class StoreItemRequest extends FormRequest
             'img' => 'nullable|file|image|max:2048',
             'name' => 'required|array',
             'name.*' => 'string|max:255',
+            'description' => 'required|array',
+            'description.*' => 'string|min:0|max:255',
             'price' => 'required|integer|min:0',
         ];
     }

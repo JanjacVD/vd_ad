@@ -6,7 +6,7 @@ export type Restaurant = {
     address: Address;
     is_open: boolean;
     is_accepting_deliveries: boolean;
-    delivery_fee: number;
+    delivery_fee: boolean;
     work_days: WorktimeSchedule;
     tags: Tag[];
 };

@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->boolean('is_open')->default(false);
             $table->boolean('confirmed')->default(false);
             $table->boolean('is_accepting_deliveries')->default(false);
-            $table->integer('delivery_fee')->nullable();
+            $table->boolean('delivery_fee')->default(true);
             $table->json('work_days');
         });
     }

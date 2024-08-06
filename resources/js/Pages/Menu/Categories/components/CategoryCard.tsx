@@ -20,11 +20,12 @@ const MenuCard = ({ img, name, restaurantId, id }: TProps) => {
             route("categories.destroy", {
                 category: id,
                 restaurant: restaurantId,
-            })
+            }),
+            { preserveState: false }
         );
     };
     return (
-        <div className="flex flex-col lg:flex-row w-full border border-gray-500 rounded-lg bg-white my-4">
+        <article className="flex flex-col lg:flex-row w-full border border-gray-500 rounded-lg bg-white my-4">
             <img
                 className="lg:w-60 lg:mr-5"
                 src={`${imagePath}${img}`}
@@ -58,7 +59,7 @@ const MenuCard = ({ img, name, restaurantId, id }: TProps) => {
                     </SecondaryButton>
                 </Dialog>
             </div>
-        </div>
+        </article>
     );
 };
 

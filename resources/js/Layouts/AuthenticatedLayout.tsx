@@ -5,7 +5,7 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { User } from "@/types";
-import { navLinksDefault } from "@/data/links";
+import { navLinksAdmin, navLinksDefault } from "@/data/links";
 import { useTranslation } from "react-i18next";
 
 export default function AuthenticatedLayout({
@@ -31,6 +31,15 @@ export default function AuthenticatedLayout({
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 {navLinksDefault.map((link) => (
+                                    <NavLink
+                                        key={link}
+                                        href={route(link)}
+                                        active={route().current(link)}
+                                    >
+                                        {t(`nav.links.${link}` as any)}
+                                    </NavLink>
+                                ))}
+                                {navLinksAdmin.map((link) => (
                                     <NavLink
                                         key={link}
                                         href={route(link)}

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { CategoryWithItems } from "../menu.types";
 import NavlinkPrimary from "@/Components/NavlinkPrimary";
 import { Translatable } from "@/types/common.types";
+import ItemCard from "./components/ItemCard";
 
 type TProps = PageProps<{ category: CategoryWithItems }>;
 const CategoriesIndex = ({ auth, category }: TProps) => {
@@ -46,7 +47,7 @@ const CategoriesIndex = ({ auth, category }: TProps) => {
                     </div>
                 )}
                 {category.items.map((item) => (
-                    <div key={item.id}>{item.name.en}</div>
+                    <ItemCard {...item} key={item.id} category={category.id} />
                 ))}
             </div>
         </AuthenticatedLayout>

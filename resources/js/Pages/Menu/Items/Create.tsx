@@ -7,7 +7,7 @@ import TextInput from "@/Components/TextInput";
 import { useTranslation } from "react-i18next";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
-import { Category, CategoryForm, Item, ItemForm } from "../menu.types";
+import { Item, ItemForm } from "../menu.types";
 import { TranslationInputs } from "@/Components/TranslationsInput";
 
 type TProps = PageProps<{ categoryId?: number; item: Item }>;
@@ -41,8 +41,7 @@ const ItemsCreate = ({ auth, categoryId, item }: TProps) => {
         if (item?.id) {
             post(
                 route("items.update", {
-                    category: categoryId,
-                    restaurant: item,
+                    item: item.id,
                 }),
                 { forceFormData: true }
             );

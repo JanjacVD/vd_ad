@@ -8,6 +8,7 @@ import RestaurantCard from "./components/RestaurantCard";
 
 type TProps = PageProps<{ restaurants: Restaurant[] }>;
 const RestaurantIndex = ({ auth, restaurants }: TProps) => {
+    console.log(auth);
     const { t } = useTranslation();
     return (
         <AuthenticatedLayout user={auth.user}>

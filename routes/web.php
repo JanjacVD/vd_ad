@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminRestaurantController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
@@ -31,10 +33,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('my-restaurants/{restaurant}', [RestaurantController::class, 'update'])->name('my-restaurants.update');
     Route::post('my-restaurants/{restaurant}/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
-    Route::resource('{category}/items', ItemController::class)->except(['update']);
-    // Route::post('{category}/items', [ItemsController::class . 'update'])->name('items.update');
+    Route::resource('{category}/items', ItemController::class)->except(['update', 'destroy']);
+    Route::post('items/{item}', [ItemController::class, 'update'])->name('items.update');
+    Route::delete('items/{item}/delete', [ItemController::class, 'destroy'])->name('items.destroy');
 
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('restaurants', AdminRestaurantController::class);
+    Route::resource('users', UserController::class);
+
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

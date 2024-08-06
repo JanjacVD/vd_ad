@@ -11,13 +11,14 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
     const { t } = useTranslation();
     const handleDelete = () => {
         router.delete(
-            route("my-restaurants.destroy", { my_restaurant: restaurant.id })
+            route("my-restaurants.destroy", { my_restaurant: restaurant.id }),
+            { preserveState: false }
         );
     };
 
     const edit = () => router.visit(route("my-restaurants.edit", restaurant));
     return (
-        <div className="w-full h-auto flex flex-wrap p-5 border border-gray-500 shadow-sm bg-white rounded-md  my-5">
+        <article className="w-full h-auto flex flex-wrap p-5 border border-gray-500 shadow-sm bg-white rounded-md  my-5">
             <img
                 className="lg:w-60 lg:mr-5"
                 src={`${imagePath}${restaurant.img}`}
@@ -42,16 +43,6 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
                 </NavlinkPrimary>
             </div>
             <div className="lg:mt-0 mt-5 lg:ml-auto flex flex-col lg:w-auto w-full">
-                <SecondaryButton
-                    data-open={1}
-                    className="!bg-blue-500 text-white data-[open='0']:bg-red-500 data-[open='0']:text-white"
-                >
-                    {t(
-                        restaurant.is_open
-                            ? "restaurants.list.close"
-                            : "restaurants.list.open"
-                    )}
-                </SecondaryButton>
                 <SecondaryButton className="my-2" onClick={edit}>
                     {t("common.edit")}
                 </SecondaryButton>
@@ -68,7 +59,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
                     </SecondaryButton>
                 </Dialog>
             </div>
-        </div>
+        </article>
     );
 };
 

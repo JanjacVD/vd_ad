@@ -11,18 +11,20 @@ type TProps = {
     name: Translatable;
     img: string;
     id: number;
+    category: number;
 };
-const ItemCard = ({ img, name, id }: TProps) => {
+const ItemCard = ({ img, name, id, category }: TProps) => {
     const { t } = useTranslation();
     const handleDelete = () => {
         router.delete(
             route("items.destroy", {
                 item: id,
-            })
+            }),
+            { preserveState: false }
         );
     };
     return (
-        <div className="flex flex-col lg:flex-row w-full border border-gray-500 rounded-lg bg-white my-4">
+        <article className="flex flex-col lg:flex-row w-full border border-gray-500 rounded-lg bg-white my-4">
             <img
                 className="lg:w-60 lg:mr-5"
                 src={`${imagePath}${img}`}
@@ -32,9 +34,10 @@ const ItemCard = ({ img, name, id }: TProps) => {
                 {name[i18n.language as keyof Translatable]}
             </p>
             <div className="ml-auto lg:w-auto place-items-center w-full lg:text-right grid grid-cols-3 gap-x-2">
-                <NavlinkPrimary href="">{t("common.edit")}</NavlinkPrimary>
-                <NavlinkPrimary href={""}>
-                    {t("categories.gotoItems")}
+                <NavlinkPrimary
+                    href={route("items.edit", { category: category, item: id })}
+                >
+                    {t("common.edit")}
                 </NavlinkPrimary>
                 <Dialog
                     actions={[
@@ -49,7 +52,7 @@ const ItemCard = ({ img, name, id }: TProps) => {
                     </SecondaryButton>
                 </Dialog>
             </div>
-        </div>
+        </article>
     );
 };
 

@@ -17,6 +17,9 @@ return new class extends Migration {
             $table->string('phone')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('isSuperAdmin')->default(false);
+            $table->boolean('isDelivery')->default(false);
+            $table->boolean('isLoyalty')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

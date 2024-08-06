@@ -100,6 +100,8 @@ class RestaurantController extends Controller
             }
             $path = str_replace('public/images/', '', $request->file('img')->store('public/images'));
             $validated['img'] = $path;
+        } else {
+            $validated['img'] = $restaurant->img;
         }
         $address = $validated['address'];
         $addressIsSame = $restaurant->address->place_id === $address['place_id'];

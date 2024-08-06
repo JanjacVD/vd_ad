@@ -11,7 +11,6 @@ export default function ApplicationLogo(props: SVGAttributes<SVGElement>) {
             {...props}
         >
             <g clipPath="url(#clip0_1_2)">
-                <rect width="204" height="106" fill="white" />
                 <rect width="102" height="106" fill="#00AD30" />
                 <rect x="102" width="102" height="106" fill="#181818" />
                 <path
