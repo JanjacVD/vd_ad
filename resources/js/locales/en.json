@@ -65,7 +65,9 @@
         "employees": {
             "add": "Add an employee",
             "admin": "Admin:",
-            "invite": "Invite"
+            "invite": "Invite",
+            "exists": "Employee already exists!",
+            "sent": "Request to join is sent!"
         },
         "alerts": {
             "deleteDesc": "All info about the restaurant will be lost.",

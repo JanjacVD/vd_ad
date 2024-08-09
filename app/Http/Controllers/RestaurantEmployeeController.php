@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use App\Models\RestaurantInvite;
+use App\Models\User;
 use App\Notifications\InviteToRestaurant;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -49,5 +50,23 @@ class RestaurantEmployeeController extends Controller
 
         return redirect(route('dashboard'));
     }
+    public function update(Request $request, $restaurantId, $employeeId)
+    {
+        $restaurant = Restaurant::findOrFail($restaurantId);
+        $user = User::findOrFail($employeeId);
 
+        $restaurant->employees()->updateExistingPivot($user->id, [
+            'adminRights' => $request->input('adminRights'),
+        ]);
+
+        return redirect()->back();
+    }
+
+
+    public function destroy(Request $request, $restaurantId, $employeeId)
+    {
+        $restaurant = Restaurant::findOrFail($restaurantId);
+        $restaurant->employees()->detach($employeeId);
+        return redirect()->back();
+    }
 }

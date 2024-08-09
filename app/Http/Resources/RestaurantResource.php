@@ -26,7 +26,7 @@ class RestaurantResource extends JsonResource
             'tags' => $this->whenLoaded('tags', TagResource::collection($this->tags)),
             'address' => $this->whenLoaded('address', $this->address),
             'categories' => $this->whenLoaded('categories', CategoryResource::collection($this->categories)),
-            'employees' => $this->whenLoaded('employees', $this->employees)
+            'employees' => $this->whenLoaded('employees', EmployeeResource::collection($this->employees))
         ];
     }
 }

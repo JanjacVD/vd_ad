@@ -6,7 +6,8 @@ import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import "./i18n";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
@@ -16,7 +17,12 @@ createInertiaApp({
         ),
     setup({ el, App, props }) {
         if (import.meta.env.DEV) {
-            createRoot(el).render(<App {...props} />);
+            createRoot(el).render(
+                <>
+                    <App {...props} />
+                    <ToastContainer />
+                </>
+            );
             return;
         }
 

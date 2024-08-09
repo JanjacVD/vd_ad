@@ -8,6 +8,7 @@ export interface User {
     isSuperAdmin: boolean;
     isLoyalty: boolean;
     isDelivery: boolean;
+    phone: string;
 }
 
 export type PageProps<

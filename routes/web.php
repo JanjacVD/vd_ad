@@ -29,16 +29,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::get('invite', [RestaurantEmployeeController::class, 'acceptInvite'])->name('employees.acceptInvite');
+
+
 
     Route::resource('my-restaurants', RestaurantController::class)->except(['update']);
     Route::resource('my-restaurants/{restaurant}/categories', CategoryController::class)->except(['update']);
 
     Route::post('my-restaurants/{restaurant}', [RestaurantController::class, 'update'])->name('my-restaurants.update');
 
-    Route::resource('my-restaurants/{restaurant}/employees', RestaurantEmployeeController::class)->only(['index']);
-    Route::post('my-restaurants/{restaurant}/employees', [RestaurantEmployeeController::class, 'sendInvite'])->name('employees.sendInvite');
+    Route::resource('my-restaurants/{restaurant}/employees', RestaurantEmployeeController::class)->only(['index', 'destroy', 'update']);
 
-    Route::get('invite', [RestaurantEmployeeController::class, 'acceptInvite'])->name('employees.acceptInvite');
+    Route::post('my-restaurants/{restaurant}/employees', [RestaurantEmployeeController::class, 'sendInvite'])->name('employees.sendInvite');
 
     Route::post('my-restaurants/{restaurant}/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 

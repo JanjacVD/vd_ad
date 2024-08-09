@@ -36,7 +36,7 @@ class Restaurant extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(User::class, 'restaurant_user');
+        return $this->belongsToMany(User::class, 'restaurant_user')->withPivot('adminRights');
     }
 
     public function invites()

@@ -1,5 +1,3 @@
-import { User } from "@/types";
-
 export type Restaurant = {
     id: number;
     name: string;
@@ -11,7 +9,15 @@ export type Restaurant = {
     delivery_fee: boolean;
     work_days: WorktimeSchedule;
     tags: Tag[];
-    employees: User[];
+    employees: Employee[];
+};
+
+export type Employee = {
+    id: number;
+    name: string;
+    email: string;
+    adminRights: boolean;
+    phone: string;
 };
 export type Tag = {
     id: number;
