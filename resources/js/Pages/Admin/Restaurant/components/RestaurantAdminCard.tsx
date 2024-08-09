@@ -12,7 +12,7 @@ const RestaurantAdminCard = ({ restaurant }: { restaurant: Restaurant }) => {
             route("restaurants.destroy", { restaurant: restaurant.id })
         );
     };
-    const handleUpdate = (fields: Partial<Restaurant>) => {
+    const handleUpdate = (fields: Omit<Partial<Restaurant>, "employees">) => {
         router.put(
             route("restaurants.destroy", { restaurant: restaurant.id }),
             { ...fields },

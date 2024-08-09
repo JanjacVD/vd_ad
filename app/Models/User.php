@@ -68,4 +68,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Address::class);
     }
 
+    public function employments()
+    {
+        return $this->belongstoMany(Restaurant::class, 'restaurant_user');
+    }
 }

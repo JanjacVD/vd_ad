@@ -1,4 +1,5 @@
 import Checkbox from "@/Components/Checkbox";
+import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PageProps, User } from "@/types";
 import { Head, router } from "@inertiajs/react";
@@ -35,7 +36,7 @@ const UserList = ({ auth, users }: PageProps<{ users: User[] }>) => {
                 </h1>
                 <div className="flex items-center pb-4">
                     {t("common.search")}:{" "}
-                    <input
+                    <TextInput
                         className="ml-3"
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}

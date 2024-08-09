@@ -59,7 +59,13 @@
             "confirmed": "Confirmed:",
             "isWorking": "Is working:",
             "menu": "Menu",
-            "freeDelivery": "Free Delivery:"
+            "freeDelivery": "Free Delivery:",
+            "employees": "Employees"
+        },
+        "employees": {
+            "add": "Add an employee",
+            "admin": "Admin:",
+            "invite": "Invite"
         },
         "alerts": {
             "deleteDesc": "All info about the restaurant will be lost.",

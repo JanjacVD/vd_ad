@@ -34,6 +34,15 @@ class Restaurant extends Model
         return $this->hasMany(Category::class);
     }
 
+    public function employees()
+    {
+        return $this->belongsToMany(User::class, 'restaurant_user');
+    }
+
+    public function invites()
+    {
+        return $this->hasMany(RestaurantInvite::class);
+    }
 
     use HasFactory;
 }

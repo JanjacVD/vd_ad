@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\RestaurantEmployeeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,10 +28,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+
     Route::resource('my-restaurants', RestaurantController::class)->except(['update']);
     Route::resource('my-restaurants/{restaurant}/categories', CategoryController::class)->except(['update']);
 
     Route::post('my-restaurants/{restaurant}', [RestaurantController::class, 'update'])->name('my-restaurants.update');
+
+    Route::resource('my-restaurants/{restaurant}/employees', RestaurantEmployeeController::class)->only(['index']);
+    Route::post('my-restaurants/{restaurant}/employees', [RestaurantEmployeeController::class, 'sendInvite'])->name('employees.sendInvite');
+
+    Route::get('invite', [RestaurantEmployeeController::class, 'acceptInvite'])->name('employees.acceptInvite');
+
     Route::post('my-restaurants/{restaurant}/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
     Route::resource('{category}/items', ItemController::class)->except(['update', 'destroy']);

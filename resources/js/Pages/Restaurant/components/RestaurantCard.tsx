@@ -34,13 +34,22 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
                         <MdClear color="red" />
                     )}
                 </p>
-                <NavlinkPrimary
-                    href={route("categories.index", {
-                        restaurant: restaurant.id,
-                    })}
-                >
-                    {t("restaurants.list.menu")}
-                </NavlinkPrimary>
+                <div className="flex items-center gap-4">
+                    <NavlinkPrimary
+                        href={route("categories.index", {
+                            restaurant: restaurant.id,
+                        })}
+                    >
+                        {t("restaurants.list.menu")}
+                    </NavlinkPrimary>
+                    <NavlinkPrimary
+                        href={route("employees.index", {
+                            restaurant: restaurant.id,
+                        })}
+                    >
+                        {t("restaurants.list.employees")}
+                    </NavlinkPrimary>
+                </div>
             </div>
             <div className="lg:mt-0 mt-5 lg:ml-auto flex flex-col lg:w-auto w-full">
                 <SecondaryButton className="my-2" onClick={edit}>
