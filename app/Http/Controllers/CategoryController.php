@@ -46,7 +46,6 @@ class CategoryController extends Controller
         if ($request->hasFile('img')) {
             $path = str_replace('public/images/', '', $request->file('img')->store('public/images'));
             $validated['img'] = $path;
-
         }
         $restaurant->categories()->create([...$validated, 'name' => json_encode($validated['name']), 'order' => $order]);
         return redirect()->route("categories.index", ["restaurant" => $restaurantId]);

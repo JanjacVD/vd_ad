@@ -42,6 +42,11 @@ export type RestaurantForm = {
     tags: number[];
 };
 
+export type TagForm = {
+    name: Translatable;
+    img: File | null;
+};
+
 export type Worktime = {
     from: string;
     to: string;

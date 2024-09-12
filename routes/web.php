@@ -50,8 +50,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('tags', TagController::class);
+Route::middleware(['auth', 'superadmin'])->group(function () {
+    Route::post('tags/{tag}', [TagController::class, 'update'])->name('tags.update');
+    Route::resource('tags', TagController::class)->except(['update']);
     Route::resource('restaurants', AdminRestaurantController::class);
     Route::resource('users', UserController::class);
 

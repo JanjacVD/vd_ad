@@ -97,6 +97,15 @@
             "price": "Price"
         }
     },
+    "tags": {
+        "empty": "No tags, would you like to create one?",
+        "create": "Create a new Tag",
+        "update": "Update Tag",
+        "alerts": {
+            "deleteDesc": "All data will be lost.",
+            "delete": "Are you sure you want to delete this Tag?"
+        }
+    },
     "nav": {
         "links": {
             "profile": "Profile",
@@ -120,6 +129,11 @@
         "titles": {
             "admin": {
                 "restaurant": "All Restaurants"
+            },
+            "tags": {
+                "index": "Tags",
+                "create": "Create a Tag",
+                "update": "Update a Tag"
             },
             "dashboard": "Dashboard",
             "myEstablishments": "My Establishments",
