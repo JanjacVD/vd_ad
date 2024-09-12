@@ -7,6 +7,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\RestaurantResource;
 use App\Models\Category;
 use App\Models\Restaurant;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -18,9 +19,7 @@ class CategoryController extends Controller
     public function index($restaurantId)
     {
         $restaurant = Restaurant::with('categories')->findOrFail($restaurantId);
-        if (!auth()->user()->id === $restaurant->user_id) {
-            abort(403);
-        }
+        Gate::authorize('view', arguments: $restaurant);
         return Inertia::render('Menu/Categories/Index', ['restaurant' => new RestaurantResource($restaurant)]);
     }
 
@@ -30,9 +29,8 @@ class CategoryController extends Controller
     public function create($restaurantId)
     {
         $restaurant = Restaurant::findOrFail($restaurantId);
-        if (!auth()->user()->id === $restaurant->user_id) {
-            abort(403);
-        }
+        Gate::authorize('update', arguments: $restaurant);
+
         return Inertia::render('Menu/Categories/Create', ['restaurantId' => $restaurantId]);
     }
 
@@ -43,6 +41,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validated();
         $restaurant = Restaurant::with('categories')->findOrFail($restaurantId);
+        Gate::authorize('update', arguments: $restaurant);
         $order = $restaurant->categories()->count();
         if ($request->hasFile('img')) {
             $path = str_replace('public/images/', '', $request->file('img')->store('public/images'));
@@ -66,11 +65,9 @@ class CategoryController extends Controller
      */
     public function edit($restaurant, $categoryId)
     {
-        $rest = Restaurant::findOrFail($restaurant);
-        if (!auth()->user()->id === $rest->user_id) {
-            abort(403);
-        }
-        $category = Category::findOrFail($restaurant);
+        $category = Category::with('restaurant')->findOrFail($categoryId);
+        Gate::authorize('update', arguments: $category);
+
         return Inertia::render('Menu/Categories/Create', ['restaurantId' => $restaurant, 'category' => new CategoryResource($category)]);
     }
 
@@ -81,6 +78,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validated();
         $category = Category::with('restaurant')->findOrFail($request->id);
+        Gate::authorize('update', arguments: $category);
         if ($request->hasFile('img')) {
             // Delete the old image if it exists
             if ($category->img) {
@@ -104,9 +102,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::with('restaurant')->findOrFail($id);
-        if (!auth()->user()->id === $category->restaurant->user_id) {
-            abort(403);
-        }
+        Gate::authorize('delete', arguments: $category);
         $category->delete();
     }
 }

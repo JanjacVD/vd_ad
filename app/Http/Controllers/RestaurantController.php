@@ -75,9 +75,8 @@ class RestaurantController extends Controller
     public function edit($id)
     {
         $restaurant = Restaurant::with(['tags', 'address'])->findOrFail($id);
-        if ($restaurant->user_id != auth()->user()->id) {
-            abort(403);
-        }
+        Gate::authorize('update', arguments: $restaurant);
+
         $tags = Tag::all();
         $collection = TagResource::collection($tags);
         return Inertia::render('Restaurant/Create', ['tags' => $collection, 'restaurant' => new RestaurantResource($restaurant)]);
@@ -90,9 +89,7 @@ class RestaurantController extends Controller
     {
         $validated = $request->validated();
         $restaurant = Restaurant::with('address')->findOrFail($id);
-        if ($restaurant->user_id != auth()->user()->id) {
-            abort(403);
-        }
+        Gate::authorize('update', arguments: $restaurant);
         if ($request->hasFile('img')) {
             // Delete the old image if it exists
             if ($restaurant->img) {
@@ -128,12 +125,10 @@ class RestaurantController extends Controller
     public function destroy($id)
     {
         $restaurant = Restaurant::findOrFail($id);
-        if (
-            Gate::allows('delete', $restaurant)
-        ) {
-            $restaurant->tags()->detach();
-            $restaurant->delete();
-            $restaurant->address()->delete();
-        }
+        Gate::authorize('delete', arguments: $restaurant);
+
+        $restaurant->tags()->detach();
+        $restaurant->delete();
+        $restaurant->address()->delete();
     }
 }

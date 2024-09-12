@@ -7,9 +7,7 @@ use App\Models\Restaurant;
 use App\Models\RestaurantInvite;
 use App\Models\User;
 use App\Notifications\InviteToRestaurant;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
@@ -17,13 +15,21 @@ class RestaurantEmployeeController extends Controller
 {
     public function index($restaurantId)
     {
-        $result = new RestaurantResource(Restaurant::with('employees')->findOrFail($restaurantId));
+
+        $restaurant = Restaurant::with('employees')->findOrFail($restaurantId);
+        // if (auth()->user()->id !== $restaurant->id) {
+        //     abort(403);
+        // }
+        $result = new RestaurantResource($restaurant);
         return Inertia::render('Employees/Index', ['restaurant' => $result]);
     }
 
     public function sendInvite(Request $request, $restaurantId)
     {
         $restaurant = Restaurant::findOrFail($restaurantId);
+        // if (auth()->user()->id !== $restaurant->id) {
+        //     abort(403);
+        // }
         $validated = $request->validate([
             'email' => 'required|email',
             'adminRights' => 'boolean'
@@ -53,6 +59,9 @@ class RestaurantEmployeeController extends Controller
     public function update(Request $request, $restaurantId, $employeeId)
     {
         $restaurant = Restaurant::findOrFail($restaurantId);
+        if (auth()->user()->id !== $restaurant->id) {
+            abort(403);
+        }
         $user = User::findOrFail($employeeId);
 
         $restaurant->employees()->updateExistingPivot($user->id, [
@@ -66,6 +75,9 @@ class RestaurantEmployeeController extends Controller
     public function destroy(Request $request, $restaurantId, $employeeId)
     {
         $restaurant = Restaurant::findOrFail($restaurantId);
+        if (auth()->user()->id !== $restaurant->id) {
+            abort(403);
+        }
         $restaurant->employees()->detach($employeeId);
         return redirect()->back();
     }

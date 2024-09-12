@@ -102,7 +102,12 @@
             "profile": "Profile",
             "dashboard": "Dashboard",
             "logout": "Log Out",
-            "my-restaurants": { "index": "My Establishments" },
+            "my-restaurants": {
+                "index": "My Establishments"
+            },
+            "tags": {
+                "index": "Tags"
+            },
             "restaurants": {
                 "index": "All Restaurants"
             },

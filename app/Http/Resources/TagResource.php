@@ -18,7 +18,7 @@ class TagResource extends JsonResource
         $locale = app()->getLocale();
         return [
             'id' => $this->id,
-            'name' => $this->getTranslation('name', $locale),
+            'name' => json_decode($this->name),
             'img' => $this->img
         ];
     }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name',
         'img',
@@ -44,5 +45,18 @@ class Restaurant extends Model
         return $this->hasMany(RestaurantInvite::class);
     }
 
-    use HasFactory;
+    public function authorizeEdit(User $user)
+    {
+        return $this->user_id === $user->id || $this->userIsEmployed($user);
+    }
+
+    public function userIsEmployed(User $user)
+    {
+        return $this->employees()
+            ->where('user_id', $user->id)
+            ->wherePivot('adminRights', true)
+            ->exists();
+    }
+
 }
+

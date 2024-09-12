@@ -1,3 +1,5 @@
+import { Translatable } from "@/types/common.types";
+
 export type Restaurant = {
     id: number;
     name: string;
@@ -22,7 +24,7 @@ export type Employee = {
 export type Tag = {
     id: number;
     img: string;
-    name: string;
+    name: Translatable;
 };
 
 export type Address = {

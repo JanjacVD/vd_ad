@@ -7,8 +7,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ItemResource;
 use App\Models\Category;
 use App\Models\Item;
-use App\Models\Items;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Storage;
 
@@ -21,8 +20,7 @@ class ItemController extends Controller
     {
 
         $category = Category::with('restaurant', 'items')->findOrFail($categoryId);
-        if ($category->restaurant->user_id != auth()->user()->id)
-            abort(403);
+        Gate::authorize('view', $category);
         return Inertia::render('Menu/Items/Index', ['category' => new CategoryResource($category)]);
     }
 
@@ -33,8 +31,7 @@ class ItemController extends Controller
     {
 
         $category = Category::with('restaurant')->findOrFail($categoryId);
-        if ($category->restaurant->user_id != auth()->user()->id)
-            abort(403);
+        Gate::authorize('create', $category->restaurant);
         return Inertia::render('Menu/Items/Create', ['categoryId' => $category->id]);
     }
 
@@ -45,8 +42,7 @@ class ItemController extends Controller
     {
         $validated = $request->validated();
         $category = Category::with('restaurant')->findOrFail($categoryId);
-        if ($category->restaurant->user_id != auth()->user()->id)
-            abort(403);
+        Gate::authorize('create', $category->restaurant);
         if ($request->hasFile('img')) {
             $path = str_replace('public/images/', '', $request->file('img')->store('public/images'));
             $validated['img'] = $path;
@@ -72,8 +68,7 @@ class ItemController extends Controller
     {
 
         $item = Item::with(['category', 'category.restaurant'])->findOrFail($item);
-        if ($item->category->restaurant->user_id != auth()->user()->id)
-            abort(403);
+        Gate::authorize('update', $item);
         return Inertia::render('Menu/Items/Create', ['categoryId' => $item->category->id, 'item' => new ItemResource($item)]);
     }
 
@@ -83,8 +78,7 @@ class ItemController extends Controller
     public function update(StoreItemRequest $request, $item)
     {
         $item = Item::with(['category', 'category.restaurant'])->findOrFail($item);
-        if ($item->category->restaurant->user_id != auth()->user()->id)
-            abort(403);
+        Gate::authorize('update', $item);
         $validated = $request->validated();
         if ($request->hasFile('img')) {
             // Delete the old image if it exists
@@ -109,9 +103,8 @@ class ItemController extends Controller
     public function destroy($itemId)
     {
         $item = Item::with(['category', 'category.restaurant'])->findOrFail($itemId);
-        if (!auth()->user()->id === $item->category->restaurant->user_id) {
-            abort(403);
-        }
+        Gate::authorize('delete', $item);
+
         $item->delete();
     }
 }

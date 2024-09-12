@@ -70,6 +70,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function employments()
     {
-        return $this->belongstoMany(Restaurant::class, 'restaurant_user');
+        return $this->belongstoMany(Restaurant::class, 'restaurant_user')->withPivot('adminRights');
+    }
+
+    public function employedAtRestaurant(int $restaurantId): bool
+    {
+        return $this->employments()
+            ->where('restaurant_id', $restaurantId)
+            ->wherePivot('adminRights', true)
+            ->exists();
     }
 }

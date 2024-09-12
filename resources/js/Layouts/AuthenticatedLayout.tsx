@@ -39,15 +39,17 @@ export default function AuthenticatedLayout({
                                         {t(`nav.links.${link}` as any)}
                                     </NavLink>
                                 ))}
-                                {navLinksAdmin.map((link) => (
-                                    <NavLink
-                                        key={link}
-                                        href={route(link)}
-                                        active={route().current(link)}
-                                    >
-                                        {t(`nav.links.${link}` as any)}
-                                    </NavLink>
-                                ))}
+                                {user.isSuperAdmin
+                                    ? navLinksAdmin.map((link) => (
+                                          <NavLink
+                                              key={link}
+                                              href={route(link)}
+                                              active={route().current(link)}
+                                          >
+                                              {t(`nav.links.${link}` as any)}
+                                          </NavLink>
+                                      ))
+                                    : null}
                             </div>
                         </div>
 

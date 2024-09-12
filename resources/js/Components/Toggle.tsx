@@ -10,7 +10,7 @@ type TToggleProps<T> = TProps<T> & {
 };
 type TToggleGroupProps<T> = TProps<T> & {
     options: T[];
-    values: (string | number)[];
+    values: (string | number | T)[];
     setData: (values: number[]) => void;
 };
 
@@ -26,11 +26,19 @@ const Toggle = <T extends object>({
             type="button"
             data-selected={selected}
             className="data-[selected=true]:bg-blue-200 mx-2"
-            onClick={() => handleClick(selected, option[valueKey])}
+            onClick={() =>
+                handleClick(
+                    selected,
+                    getNestedValue(option, valueKey as string)
+                )
+            }
         >
-            {option[labelKey] as string}
+            {getNestedValue(option, labelKey as string) as string}
         </SecondaryButton>
     );
+};
+const getNestedValue = <T extends object>(obj: T, path: string) => {
+    return path.split(".").reduce((acc, part) => acc && acc[part], obj as any);
 };
 
 const ToggleGroup = <T extends Object>({
@@ -45,6 +53,7 @@ const ToggleGroup = <T extends Object>({
             setData(values.filter((val) => val !== value) as number[]);
         else setData([...values, value] as number[]);
     };
+
     return (
         <div>
             {options.map((option, index) => (
@@ -53,7 +62,9 @@ const ToggleGroup = <T extends Object>({
                     labelKey={labelKey}
                     valueKey={valueKey}
                     option={option}
-                    selected={values.includes(Number(option[valueKey]))}
+                    selected={values.includes(
+                        Number(getNestedValue(option, valueKey as string))
+                    )}
                     handleClick={handleClick}
                 />
             ))}

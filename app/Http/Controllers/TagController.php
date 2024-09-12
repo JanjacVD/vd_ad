@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TagResource;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TagController extends Controller
 {
@@ -12,7 +14,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = TagResource::collection(Tag::all());
+        return Inertia::render('Tags/Index', ['tags' => $tags]);
     }
 
     /**

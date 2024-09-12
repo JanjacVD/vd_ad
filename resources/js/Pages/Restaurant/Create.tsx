@@ -23,7 +23,7 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
                 ? {
                       ...restaurant,
                       img: null,
-                      tags: restaurant.tags.map((tag) => tag.id),
+                      tags: restaurant?.tags?.map((tag) => tag.id) ?? [],
                   }
                 : {
                       name: "",
@@ -32,6 +32,7 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
                       tags: [],
                   }
         );
+    console.log(tags, data);
     const { t } = useTranslation();
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -40,7 +41,9 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
                 forceFormData: true,
             });
         } else {
-            post(route("my-restaurants.store"), { forceFormData: true });
+            post(route("my-restaurants.store"), {
+                forceFormData: true,
+            });
         }
     };
     const [address, setAddress] = useState(
@@ -50,8 +53,8 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
 
     const { fetchLocation, isLoading, clearMap } = useFetchLocation();
     const mapRef = useRef<HTMLDivElement>(null);
-    const handleSetTags = (tags: number[]) => {
-        setData("tags", tags);
+    const handleSetTags = (t: number[]) => {
+        setData("tags", t);
     };
     const handleLocationFetch = async () => {
         try {
@@ -193,8 +196,8 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
                         <ToggleGroup
                             setData={handleSetTags}
                             options={tags}
-                            values={data.tags}
-                            labelKey={"name"}
+                            values={data?.tags ?? []}
+                            labelKey={"name.en" as keyof Tag}
                             valueKey="id"
                         />
                     </div>

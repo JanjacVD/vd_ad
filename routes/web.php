@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RestaurantEmployeeController;
+use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,13 +33,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('invite', [RestaurantEmployeeController::class, 'acceptInvite'])->name('employees.acceptInvite');
 
 
+    Route::resource('my-restaurants/{restaurant}/employees', RestaurantEmployeeController::class)->only(['index', 'destroy', 'update']);
 
     Route::resource('my-restaurants', RestaurantController::class)->except(['update']);
     Route::resource('my-restaurants/{restaurant}/categories', CategoryController::class)->except(['update']);
 
     Route::post('my-restaurants/{restaurant}', [RestaurantController::class, 'update'])->name('my-restaurants.update');
-
-    Route::resource('my-restaurants/{restaurant}/employees', RestaurantEmployeeController::class)->only(['index', 'destroy', 'update']);
 
     Route::post('my-restaurants/{restaurant}/employees', [RestaurantEmployeeController::class, 'sendInvite'])->name('employees.sendInvite');
 
@@ -51,6 +51,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::resource('tags', TagController::class);
     Route::resource('restaurants', AdminRestaurantController::class);
     Route::resource('users', UserController::class);
 
