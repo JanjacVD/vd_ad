@@ -21,11 +21,11 @@ Route::get('/user', function (Request $request) {
 
 Route::post('login', [AuthTokenController::class, 'login']);
 Route::post('register', [RegisterUserController::class, 'store']);
-Route::post('reset-password', [ApiPasswordResetLinkController::class, 'store']);
+Route::post('reset-password', [ApiPasswordResetLinkController::class, 'store'])->middleware('throttle:2,1');
+Route::post('logout', [AuthTokenController::class, 'logout'])->middleware('auth:sanctum');
 
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('logout', [AuthTokenController::class, 'logout']);
+Route::middleware(['auth:sanctum', 'throttle:2,1'])->group(function () {
 
     Route::post('verify-email', VerifyEmailController::class);
     Route::post('verify-email/resend', SendEmailVerificationCode::class);
