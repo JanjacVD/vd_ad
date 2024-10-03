@@ -1,0 +1,542 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Api Documentation",
+        "description": "Laravel autogenerate swagger",
+        "termsOfService": "http:\/\/swagger.io\/terms\/",
+        "contact": {
+            "email": "hussein4alaa@gmail.com"
+        },
+        "license": {
+            "name": "Github",
+            "url": "https:\/\/github.com\/hussein4alaa"
+        },
+        "version": "3.0.7"
+    },
+    "servers": [
+        {
+            "url": "http:\/\/localhost:8000",
+            "description": "localhost"
+        }
+    ],
+    "components": {
+        "tags": [
+            {
+                "name": "AuthToken",
+                "description": null
+            },
+            {
+                "name": "RegisterUser",
+                "description": null
+            }
+        ],
+        "paths": {
+            "\/api\/login": {
+                "post": {
+                    "tags": [
+                        "AuthToken"
+                    ],
+                    "summary": "login",
+                    "description": "",
+                    "operationId": "_api_login_POST",
+                    "parameters": [],
+                    "responses": {
+                        "200": {
+                            "description": "Successful Operation",
+                            "content": {
+                                "application\/json": {
+                                    "example": {
+                                        "token": "mock_value",
+                                        "user": {
+                                            "id": "mock_value",
+                                            "name": [
+                                                "string",
+                                                "string",
+                                                "string",
+                                                "string",
+                                                "string"
+                                            ],
+                                            "verified": "mock_value",
+                                            "isSuperAdmin": "mock_value",
+                                            "isDelivery": "mock_value",
+                                            "isLoyalty": "mock_value",
+                                            "address": [
+                                                {
+                                                    "place_id": "string",
+                                                    "formatted_address": "string",
+                                                    "lat": "mock_value",
+                                                    "lng": "mock_value",
+                                                    "is_primary": "mock_value",
+                                                    "name": "string"
+                                                },
+                                                {
+                                                    "place_id": "string",
+                                                    "formatted_address": "string",
+                                                    "lat": "mock_value",
+                                                    "lng": "mock_value",
+                                                    "is_primary": "mock_value",
+                                                    "name": "string"
+                                                },
+                                                {
+                                                    "place_id": "string",
+                                                    "formatted_address": "string",
+                                                    "lat": "mock_value",
+                                                    "lng": "mock_value",
+                                                    "is_primary": "mock_value",
+                                                    "name": "string"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "schema": {
+                                        "$ref": "#\/components\/schemas\/AuthTokenLoginResponse"
+                                    }
+                                }
+                            }
+                        },
+                        "401": {
+                            "description": "Unauthorized"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        },
+                        "422": {
+                            "description": "Validation Issues"
+                        }
+                    },
+                    "security": [],
+                    "requestBody": {
+                        "description": "",
+                        "content": {
+                            "multipart\/form-data": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/AuthTokenLogin"
+                                }
+                            },
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/AuthTokenLogin"
+                                }
+                            }
+                        },
+                        "required": true
+                    }
+                }
+            },
+            "\/api\/register": {
+                "post": {
+                    "tags": [
+                        "RegisterUser"
+                    ],
+                    "summary": "register",
+                    "description": "",
+                    "operationId": "_api_register_POST",
+                    "parameters": [],
+                    "responses": {
+                        "200": {
+                            "description": "Successful Operation"
+                        },
+                        "401": {
+                            "description": "Unauthorized"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        },
+                        "422": {
+                            "description": "Validation Issues"
+                        }
+                    },
+                    "security": [],
+                    "requestBody": {
+                        "description": "",
+                        "content": {
+                            "multipart\/form-data": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/RegisterUserStore"
+                                }
+                            },
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/RegisterUserStore"
+                                }
+                            }
+                        },
+                        "required": true
+                    }
+                }
+            },
+            "\/api\/logout": {
+                "post": {
+                    "tags": [
+                        "AuthToken"
+                    ],
+                    "summary": "logout",
+                    "description": "",
+                    "operationId": "_api_logout_POST",
+                    "parameters": [],
+                    "responses": {
+                        "200": {
+                            "description": "Successful Operation"
+                        },
+                        "401": {
+                            "description": "Unauthorized"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        },
+                        "422": {
+                            "description": "Validation Issues"
+                        }
+                    },
+                    "security": []
+                }
+            },
+            "\/api\/logout-all": {
+                "post": {
+                    "tags": [
+                        "AuthToken"
+                    ],
+                    "summary": "logout-all",
+                    "description": "",
+                    "operationId": "_api_logout-all_POST",
+                    "parameters": [],
+                    "responses": {
+                        "200": {
+                            "description": "Successful Operation"
+                        },
+                        "401": {
+                            "description": "Unauthorized"
+                        },
+                        "400": {
+                            "description": "Bad Request"
+                        },
+                        "422": {
+                            "description": "Validation Issues"
+                        }
+                    },
+                    "security": []
+                }
+            }
+        },
+        "schemas": {
+            "AuthTokenLogin": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "required": "true",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "required": "true",
+                        "type": "string"
+                    }
+                },
+                "xml": {
+                    "name": "authtokenlogin"
+                }
+            },
+            "RegisterUserStore": {
+                "required": [
+                    "name",
+                    "email",
+                    "phone",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "required": "true",
+                        "type": "string",
+                        "maximum": "255"
+                    },
+                    "email": {
+                        "required": "true",
+                        "type": "string",
+                        "format": "email",
+                        "maximum": "255",
+                        "unique": "true"
+                    },
+                    "phone": {
+                        "required": "true",
+                        "type": "string",
+                        "maximum": "16"
+                    },
+                    "password": {
+                        "required": "true",
+                        "type": "string"
+                    }
+                },
+                "xml": {
+                    "name": "registeruserstore"
+                }
+            },
+            "UserResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "verified": {
+                        "type": "boolean"
+                    },
+                    "isSuperAdmin": {
+                        "type": "boolean"
+                    },
+                    "isDelivery": {
+                        "type": "boolean"
+                    },
+                    "isLoyalty": {
+                        "type": "boolean"
+                    },
+                    "address": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/AddressResource"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "verified",
+                    "isSuperAdmin",
+                    "isDelivery",
+                    "isLoyalty",
+                    "address"
+                ],
+                "xml": "userresource"
+            },
+            "AuthTokenLoginResponse": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "user"
+                    },
+                    "user": {
+                        "$ref": "#\/components\/schemas\/UserResource"
+                    }
+                },
+                "required": [
+                    "token",
+                    "user"
+                ],
+                "xml": "authtokenloginresponse"
+            }
+        },
+        "securitySchemes": {
+            "authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "AuthToken",
+            "description": null
+        },
+        {
+            "name": "RegisterUser",
+            "description": null
+        }
+    ],
+    "paths": {
+        "\/api\/login": {
+            "post": {
+                "tags": [
+                    "AuthToken"
+                ],
+                "summary": "login",
+                "description": "",
+                "operationId": "_api_login_POST",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application\/json": {
+                                "example": {
+                                    "token": "mock_value",
+                                    "user": {
+                                        "id": "mock_value",
+                                        "name": [
+                                            "string",
+                                            "string",
+                                            "string",
+                                            "string"
+                                        ],
+                                        "verified": "mock_value",
+                                        "isSuperAdmin": "mock_value",
+                                        "isDelivery": "mock_value",
+                                        "isLoyalty": "mock_value",
+                                        "address": [
+                                            {
+                                                "place_id": "string",
+                                                "formatted_address": "string",
+                                                "lat": "mock_value",
+                                                "lng": "mock_value",
+                                                "is_primary": "mock_value",
+                                                "name": "string"
+                                            },
+                                            {
+                                                "place_id": "string",
+                                                "formatted_address": "string",
+                                                "lat": "mock_value",
+                                                "lng": "mock_value",
+                                                "is_primary": "mock_value",
+                                                "name": "string"
+                                            },
+                                            {
+                                                "place_id": "string",
+                                                "formatted_address": "string",
+                                                "lat": "mock_value",
+                                                "lng": "mock_value",
+                                                "is_primary": "mock_value",
+                                                "name": "string"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/AuthTokenLoginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Issues"
+                    }
+                },
+                "security": [],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "multipart\/form-data": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/AuthTokenLogin"
+                            }
+                        },
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/AuthTokenLogin"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            }
+        },
+        "\/api\/register": {
+            "post": {
+                "tags": [
+                    "RegisterUser"
+                ],
+                "summary": "register",
+                "description": "",
+                "operationId": "_api_register_POST",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Issues"
+                    }
+                },
+                "security": [],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "multipart\/form-data": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/RegisterUserStore"
+                            }
+                        },
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/RegisterUserStore"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            }
+        },
+        "\/api\/logout": {
+            "post": {
+                "tags": [
+                    "AuthToken"
+                ],
+                "summary": "logout",
+                "description": "",
+                "operationId": "_api_logout_POST",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Issues"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/logout-all": {
+            "post": {
+                "tags": [
+                    "AuthToken"
+                ],
+                "summary": "logout-all",
+                "description": "",
+                "operationId": "_api_logout-all_POST",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "422": {
+                        "description": "Validation Issues"
+                    }
+                },
+                "security": []
+            }
+        }
+    }
+}

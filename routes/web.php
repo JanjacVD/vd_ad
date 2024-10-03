@@ -19,7 +19,12 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+
 });
+
+Route::get('/email-verified', function () {
+    return Inertia::render('EmailVerified');
+})->name('email.verified');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -64,5 +69,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require_once __DIR__ . '/auth.php';

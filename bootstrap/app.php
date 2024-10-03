@@ -7,8 +7,10 @@ use Illuminate\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
+        api: __DIR__ . '/../routes/api.php',
         web: __DIR__ . '/../routes/web.php',
         commands: __DIR__ . '/../routes/console.php',
+        apiPrefix: 'api',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -16,9 +18,16 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
+        $middleware->api(append: [
+            \G4T\Swagger\Middleware\SetJsonResponseMiddleware::class,
+        ]);
         $middleware->alias([
             'superadmin' => IsSuperAdminMiddleware::class
         ]);
+        $middleware->api()->validateCsrfTokens(except: [
+            '*'
+        ]);
+
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {

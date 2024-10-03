@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use App\IMustVerifyMobile;
+use App\MustVerifyMobile;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notification;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, IMustVerifyMobile
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasApiTokens, MustVerifyMobile, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -26,9 +31,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'isSuperAdmin',
         'isLoyalty',
-        'isDelivery'
+        'isDelivery',
+        'email_verify_code'
     ];
-
+    public function routeNotificationForVonage(Notification $notification): string
+    {
+        return $this->phone;
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -54,6 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'phone_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -65,7 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->hasMany(Address::class);
     }
 
     public function employments()
