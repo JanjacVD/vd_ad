@@ -22,7 +22,7 @@ class StoreTagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'img' => 'nullable|file|image|max:2048',
+            'img' => 'nullable|file|image|max:8048',
             'name' => 'required|array',
             'name.*' => 'string|max:255',
         ];

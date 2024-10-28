@@ -15,7 +15,6 @@ class TagResource extends JsonResource
     public static $wrap = null;
     public function toArray($request): array
     {
-        $locale = app()->getLocale();
         return [
             'id' => $this->id,
             'name' => json_decode($this->name),

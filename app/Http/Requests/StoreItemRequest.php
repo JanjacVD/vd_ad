@@ -25,7 +25,7 @@ class StoreItemRequest extends FormRequest
             'img' => 'nullable|file|image|max:2048',
             'name' => 'required|array',
             'name.*' => 'string|max:255',
-            'description' => 'required|array',
+            'description' => 'array',
             'description.*' => 'string|min:0|max:255',
             'price' => 'required|integer|min:0',
         ];

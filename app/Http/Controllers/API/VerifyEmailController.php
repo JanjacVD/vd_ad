@@ -13,19 +13,15 @@ class VerifyEmailController extends ApiController
      */
     public function __invoke(Request $request)
     {
-        return $this->_OK(['status' => 'verified']);
 
         $user = auth()->user();
 
         $validated = $request->validate(['code' => 'string|min:3']);
-        if (!($user->email_verify_code == $validated['code'])) {
+        if (($user->email_verify_code !== $validated['code'])) {
             return $this->_ERROR('Invalid code', 422);
         }
-        if ($user->hasVerifiedEmail()) {
-            return $this->_OK(['status' => 'verified']);
-        }
-
         $user->markEmailAsVerified();
+
         if (!$user->hasVerifiedMobile()) {
             $sendPhoneVerificationCodeController = app(SendPhoneVerificationCode::class);
             $sendPhoneVerificationCodeController($request);

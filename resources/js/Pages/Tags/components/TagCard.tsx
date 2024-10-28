@@ -1,8 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { imagePath } from "@/utils/storage";
-import { MdCheck, MdClear } from "react-icons/md";
 import SecondaryButton from "@/Components/SecondaryButton";
-import NavlinkPrimary from "@/Components/NavlinkPrimary";
 import { router } from "@inertiajs/react";
 import Dialog from "@/Components/Dialog";
 import { Tag } from "@/Pages/Restaurant/restaurants.types";
