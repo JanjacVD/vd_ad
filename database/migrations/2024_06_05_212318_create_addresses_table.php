@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('place_id');
             $table->string('formatted_address');
-            $table->string('name');
             $table->double('lat');
             $table->double('lng');
             $table->boolean('is_primary')->default(false);

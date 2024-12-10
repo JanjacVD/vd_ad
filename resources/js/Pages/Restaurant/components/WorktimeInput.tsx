@@ -30,6 +30,7 @@ const WorktimeInput = ({
         () => [areWorktimesEqual(data), getFirstNonNullWorktimeIfEqual(data)],
         []
     );
+    console.log(data);
     const { t } = useTranslation();
     const [sameForEveryDay, setSameForEveryDay] = useState(
         mode === "create" ? true : isEqual
@@ -38,6 +39,26 @@ const WorktimeInput = ({
         sameFrom: defaultValue.from,
         sameTo: defaultValue.to,
     });
+
+    const handleSetSameTime = (val: string, key: "sameFrom" | "sameTo") => {
+        setSameTime((prev) => {
+            const res = { ...prev, [key]: val };
+            setData(
+                Object.entries(data).reduce((result, [key, value]) => {
+                    if (value === null) {
+                        result[key as keyof WorktimeSchedule] = null;
+                    } else {
+                        result[key as keyof WorktimeSchedule] = {
+                            from: res.sameFrom,
+                            to: res.sameTo,
+                        };
+                    }
+                    return result;
+                }, {} as WorktimeSchedule)
+            );
+            return res;
+        });
+    };
 
     const handleCheckDay = (day: keyof WorktimeSchedule, checked: boolean) => {
         let worktime: WorktimeSchedule = { ...data };
@@ -48,6 +69,23 @@ const WorktimeInput = ({
               }
             : null;
         setData({ ...worktime });
+    };
+
+    const handleCheckSameForEveryDay = () => {
+        setSameForEveryDay((prev) => !prev);
+        setData(
+            Object.entries(data).reduce((result, [key, value]) => {
+                if (value === null) {
+                    result[key as keyof WorktimeSchedule] = null;
+                } else {
+                    result[key as keyof WorktimeSchedule] = {
+                        from: sameFrom,
+                        to: sameTo,
+                    };
+                }
+                return result;
+            }, {} as WorktimeSchedule)
+        );
     };
 
     const handleChangeTime = (
@@ -70,7 +108,7 @@ const WorktimeInput = ({
                 <Checkbox
                     className="mr-2 w-5 h-5"
                     checked={sameForEveryDay}
-                    onChange={() => setSameForEveryDay((prev) => !prev)}
+                    onChange={handleCheckSameForEveryDay}
                 />
                 <p>{t("restaurants.form.worktimeSame")}</p>
                 {sameForEveryDay && (
@@ -81,10 +119,10 @@ const WorktimeInput = ({
                                 type="time"
                                 value={sameFrom}
                                 onChange={(e) =>
-                                    setSameTime((prev) => ({
-                                        ...prev,
-                                        sameFrom: e.target.value,
-                                    }))
+                                    handleSetSameTime(
+                                        e.target.value,
+                                        "sameFrom"
+                                    )
                                 }
                             />
                         </div>
@@ -94,10 +132,7 @@ const WorktimeInput = ({
                                 type="time"
                                 value={sameTo}
                                 onChange={(e) =>
-                                    setSameTime((prev) => ({
-                                        ...prev,
-                                        sameTo: e.target.value,
-                                    }))
+                                    handleSetSameTime(e.target.value, "sameTo")
                                 }
                             />
                         </div>

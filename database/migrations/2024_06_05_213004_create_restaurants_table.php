@@ -18,12 +18,13 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('address_id');
-            $table->foreign('address_id')->references('id')->on('addresses');
+            $table->foreign('address_id')->references('id')->on('addresses')->nullOnDelete();
             $table->boolean('is_open')->default(false);
             $table->boolean('confirmed')->default(false);
             $table->boolean('is_accepting_deliveries')->default(false);
             $table->boolean('delivery_fee')->default(true);
             $table->json('work_days');
+            $table->string('contact');
         });
     }
 

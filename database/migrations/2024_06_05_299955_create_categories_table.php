@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('restaurant_id');
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->unsignedBigInteger('order');
+            $table->boolean('isActive')->default(true);
         });
     }
 

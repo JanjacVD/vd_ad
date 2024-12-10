@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\IsDeliveryMiddleware;
 use App\Http\Middleware\IsSuperAdminMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -22,7 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \G4T\Swagger\Middleware\SetJsonResponseMiddleware::class,
         ]);
         $middleware->alias([
-            'superadmin' => IsSuperAdminMiddleware::class
+            'superadmin' => IsSuperAdminMiddleware::class,
+            'deliveryOnly' => IsDeliveryMiddleware::class
         ]);
         $middleware->api()->validateCsrfTokens(except: [
             '*'

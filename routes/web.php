@@ -4,11 +4,13 @@ use App\Http\Controllers\Admin\AdminRestaurantController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RestaurantEmployeeController;
 use App\Http\Controllers\TagController;
 use App\Models\Restaurant;
+use App\Services\GeocodingService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('my-restaurants/{restaurant}/categories', CategoryController::class)->except(['update']);
 
     Route::post('my-restaurants/{restaurant}', [RestaurantController::class, 'update'])->name('my-restaurants.update');
+    Route::post('my-restaurants/update/{restaurant}', [RestaurantController::class, 'quickUpdate'])->name('my-restaurants.quickUpdate');
 
     Route::post('my-restaurants/{restaurant}/employees', [RestaurantEmployeeController::class, 'sendInvite'])->name('employees.sendInvite');
 

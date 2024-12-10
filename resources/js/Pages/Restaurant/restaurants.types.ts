@@ -11,6 +11,7 @@ export type Restaurant = {
     delivery_fee: boolean;
     work_days: WorktimeSchedule;
     tags: Tag[];
+    contact: string;
     employees: Employee[];
 };
 
@@ -40,6 +41,7 @@ export type RestaurantForm = {
     work_days: WorktimeSchedule;
     img: File | null;
     tags: number[];
+    contact: string;
 };
 
 export type TagForm = {

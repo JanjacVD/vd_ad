@@ -13,7 +13,6 @@ class Address extends Model
         'lat',
         'lng',
         'is_primary',
-        'name'
     ];
     use HasFactory;
 }

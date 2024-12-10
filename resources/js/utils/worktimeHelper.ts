@@ -37,7 +37,7 @@ export const getFirstNonNullWorktimeIfEqual = (
 
     for (const day of days) {
         const worktime = schedule[day];
-        if (worktime) {
+        if (worktime && worktime.from && worktime.to) {
             return worktime;
         }
     }

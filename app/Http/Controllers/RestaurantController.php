@@ -51,6 +51,7 @@ class RestaurantController extends Controller
             'name' => $validated['name'],
             'address_id' => $address->id,
             'user_id' => auth()->user()->id,
+            'contact' => $validated['contact'],
             'work_days' => json_encode($validated['work_days']),
             'img' => $validated['img'] ?? null,
         ]);
@@ -119,16 +120,28 @@ class RestaurantController extends Controller
         return redirect(route('my-restaurants.index'));
     }
 
+    public function quickUpdate(Request $request, $id)
+    {
+        $res = Restaurant::findOrFail($id);
+        $res->update($request->input());
+        return redirect(route('my-restaurants.index'));
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        $restaurant = Restaurant::findOrFail($id);
-        Gate::authorize('delete', arguments: $restaurant);
 
+        $restaurant = Restaurant::findOrFail($id);
+
+        // Check authorization
+        Gate::authorize('delete', $restaurant);
+
+        // Detach tags (if applicable)
         $restaurant->tags()->detach();
+
+        // Then delete the restaurant
         $restaurant->delete();
-        $restaurant->address()->delete();
     }
 }

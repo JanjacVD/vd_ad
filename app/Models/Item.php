@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['price', 'name', 'description', 'img'];
+    protected $fillable = ['price', 'name', 'description', 'img', 'isActive'];
 
     public function category()
     {

@@ -8,7 +8,6 @@ import RestaurantCard from "./components/RestaurantCard";
 
 type TProps = PageProps<{ restaurants: Restaurant[] }>;
 const RestaurantIndex = ({ auth, restaurants }: TProps) => {
-    console.log(auth);
     const { t } = useTranslation();
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -37,12 +36,14 @@ const RestaurantIndex = ({ auth, restaurants }: TProps) => {
                         </NavlinkPrimary>
                     </div>
                 )}
-                {restaurants.map((restaurant) => (
-                    <RestaurantCard
-                        key={restaurant.id}
-                        restaurant={restaurant}
-                    />
-                ))}
+                {restaurants
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((restaurant) => (
+                        <RestaurantCard
+                            key={restaurant.id}
+                            restaurant={restaurant}
+                        />
+                    ))}
             </div>
         </AuthenticatedLayout>
     );

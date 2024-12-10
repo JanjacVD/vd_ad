@@ -18,13 +18,6 @@ class ResturantController extends ApiController
         return $this->_OK(RestaurantResource::collection($restaurant));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -38,16 +31,17 @@ class ResturantController extends ApiController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function search(Request $request)
     {
-        //
+        $searchValue = $request->input('searchValue');
+
+        $restaurants = Restaurant::with(['tags', 'categories', 'categories.items'])
+            ->where('name', 'LIKE', "%$searchValue%") // Match restaurant name
+            ->orWhereHas('categories.items', function ($query) use ($searchValue) {
+                $query->where('name', 'LIKE', "%$searchValue%"); // Match item name
+            })
+            ->get();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+
 }

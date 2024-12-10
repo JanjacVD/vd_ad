@@ -26,6 +26,7 @@ class StoreRestaurantRequest extends FormRequest
             'address' => 'nullable|array',
             'work_days' => 'required|array',
             'img' => 'nullable|file|image|max:2048',
+            'contact' => 'required|string|max:20',
             'tags' => 'required|array',
             'tags.*' => 'integer|exists:tags,id',
         ];

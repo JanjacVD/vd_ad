@@ -40,6 +40,8 @@
         "empty": "You are not managing any restaurants, would you like to create one?",
         "create": "Create a new Restaurant",
         "update": "Update your Restaurant info",
+        "isOpen": "Open?",
+        "acceptingDeliveries": "Accepting orders?",
         "form": {
             "name": "Name",
             "address": "Address",
@@ -50,7 +52,8 @@
             "to": "To:",
             "image": "Image",
             "tags": "Tags",
-            "clearAddress": "Clear Address"
+            "clearAddress": "Clear Address",
+            "contact": "Contact"
         },
         "errors": {
             "invalidAddress": "Address is invalid"

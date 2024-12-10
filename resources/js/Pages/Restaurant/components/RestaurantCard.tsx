@@ -6,6 +6,9 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import NavlinkPrimary from "@/Components/NavlinkPrimary";
 import { router } from "@inertiajs/react";
 import Dialog from "@/Components/Dialog";
+import { Switch } from "@headlessui/react";
+import Checkbox from "@/Components/Checkbox";
+import InputLabel from "@/Components/InputLabel";
 
 const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
     const { t } = useTranslation();
@@ -17,6 +20,17 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
     };
 
     const edit = () => router.visit(route("my-restaurants.edit", restaurant));
+
+    const updateStatus = (
+        key: "is_accepting_deliveries" | "is_open",
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        e.preventDefault();
+        console.log(route("my-restaurants.quickUpdate", restaurant));
+        router.post(route("my-restaurants.quickUpdate", restaurant), {
+            [key]: e.target.checked,
+        });
+    };
     return (
         <article className="w-full h-auto flex flex-wrap p-5 border border-gray-500 shadow-sm bg-white rounded-md  my-5">
             <img
@@ -52,12 +66,34 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
                 </div>
             </div>
             <div className="lg:mt-0 mt-5 lg:ml-auto flex flex-col lg:w-auto w-full">
+                <div className="mb-4">
+                    <InputLabel className="flex items-center mb-2 gap-x-2">
+                        {t("restaurants.isOpen")}:
+                        <Checkbox
+                            checked={restaurant.is_open}
+                            onChange={(e) => updateStatus("is_open", e)}
+                        />
+                    </InputLabel>
+                    <InputLabel className="flex items-center gap-x-2">
+                        {t("restaurants.acceptingDeliveries")}:
+                        <Checkbox
+                            checked={restaurant.is_accepting_deliveries}
+                            onChange={(e) =>
+                                updateStatus("is_accepting_deliveries", e)
+                            }
+                        />
+                    </InputLabel>
+                </div>
                 <SecondaryButton className="my-2" onClick={edit}>
                     {t("common.edit")}
                 </SecondaryButton>
+
                 <Dialog
                     actions={[
-                        { title: t("common.delete"), callback: handleDelete },
+                        {
+                            title: t("common.delete"),
+                            callback: handleDelete,
+                        },
                         { title: t("common.cancel") },
                     ]}
                     description={t("restaurants.alerts.deleteDesc")}

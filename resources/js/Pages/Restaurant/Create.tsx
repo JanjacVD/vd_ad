@@ -30,9 +30,9 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
                       work_days: initWorktime,
                       img: null,
                       tags: [],
+                      contact: "+385",
                   }
         );
-    console.log(tags, data);
     const { t } = useTranslation();
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -156,6 +156,32 @@ const RestaurantCreate = ({ auth, tags, restaurant }: TProps) => {
                             value={data.name}
                             className="mt-1 flex-1"
                             onChange={(e) => setData("name", e.target.value)}
+                            isFocused={true}
+                        />
+                    </div>
+
+                    <InputError message={errors.name} className="mt-2" />
+                </div>
+                <div className="mt-5">
+                    <InputLabel
+                        htmlFor="contact"
+                        value={t("restaurants.form.contact")}
+                    />
+                    <div className="flex items-center">
+                        <TextInput
+                            id="contact"
+                            type="text"
+                            name="contact"
+                            value={data.contact}
+                            className="mt-1 flex-1"
+                            onChange={(e) => {
+                                const countryCode = "+385";
+                                let value = e.target.value;
+                                if (!value.startsWith(countryCode)) {
+                                    value = countryCode;
+                                }
+                                setData("contact", value);
+                            }}
                             isFocused={true}
                         />
                     </div>

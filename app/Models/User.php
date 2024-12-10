@@ -90,4 +90,20 @@ class User extends Authenticatable implements MustVerifyEmail, IMustVerifyMobile
             ->wherePivot('adminRights', true)
             ->exists();
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function delivering()
+    {
+        return $this->hasMany(Order::class, 'delivery_user_id');
+
+    }
+
+    public function expoTokens()
+    {
+        return $this->hasMany(ExpoToken::class);
+    }
 }
