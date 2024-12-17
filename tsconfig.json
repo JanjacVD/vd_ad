@@ -13,8 +13,7 @@
         "paths": {
             "@/*": ["./resources/js/*"],
             "ziggy-js": ["./vendor/tightenco/ziggy"]
-        },
-        "types": ["google.maps"]
+        }
     },
     "include": [
         "resources/js/**/*.ts",
