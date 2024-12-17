@@ -6,6 +6,7 @@ import Dialog from "@/Components/Dialog";
 import { Tag } from "@/Pages/Restaurant/restaurants.types";
 
 const TagCard = ({ tag }: { tag: Tag }) => {
+    console.log(tag);
     const { t } = useTranslation();
     const handleDelete = () => {
         router.delete(route("tags.destroy", { tag: tag.id }), {

@@ -39,7 +39,10 @@ class TagController extends Controller
             $path = str_replace('public/images/', '', $request->file('img')->store('public/images'));
             $validated['img'] = $path;
         }
-        Tag::create($validated);
+        Tag::create([
+            ...$validated,
+            'name' => json_encode($validated['name'])
+        ]);
         return redirect()->route("tags.index");
 
     }
