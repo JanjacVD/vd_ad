@@ -1,4 +1,3 @@
-//@ts-ignore
 import { Address } from "@/Pages/Restaurant/restaurants.types";
 import { Loader } from "@googlemaps/js-api-loader";
 import { useState } from "react";
