@@ -29,6 +29,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api()->validateCsrfTokens(except: [
             '*'
         ]);
+        $middleware->trustProxies(at: [
+            '*',
+        ]);
 
         //
     })
