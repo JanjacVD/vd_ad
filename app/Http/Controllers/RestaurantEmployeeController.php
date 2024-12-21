@@ -41,7 +41,7 @@ class RestaurantEmployeeController extends Controller
     public function acceptInvite(Request $request)
     {
         $hash = $request->input('hash');
-        $invite = RestaurantInvite::findOrFail($hash);
+        $invite = RestaurantInvite::where('hash', $hash)->first();
 
         if (auth()->user()->email !== $invite->email) {
             abort(403, "Invalid email");
