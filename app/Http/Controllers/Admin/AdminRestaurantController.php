@@ -25,4 +25,10 @@ class AdminRestaurantController extends Controller
         Restaurant::findOrFail($restaurantId)->update($validated);
         return redirect()->back();
     }
+
+    public function destroy($id)
+    {
+        $res = Restaurant::findOrFail($id);
+        $res->delete();
+    }
 }
