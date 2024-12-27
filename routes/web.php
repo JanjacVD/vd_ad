@@ -25,6 +25,10 @@ Route::get('/', function () {
 
 });
 
+Route::get('/privacy-policy', function () {
+    return Inertia::render('Privacy');
+});
+
 Route::get('/email-verified', function () {
     return Inertia::render('EmailVerified');
 })->name('email.verified');
