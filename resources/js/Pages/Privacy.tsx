@@ -100,7 +100,10 @@ export default function Privacy({}: PageProps<{
                 </ul>
                 <p>
                     Za ostvarenje vaših prava, obratite nam se putem emaila:{" "}
-                    <a href="mailto:vd-ad@example.com">vd-ad@example.com</a>.
+                    <a href="vodiceapsolutnadostava@gmail.com">
+                        vodiceapsolutnadostava@gmail.com
+                    </a>
+                    .
                 </p>
             </section>
 
