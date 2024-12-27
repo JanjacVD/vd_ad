@@ -60,7 +60,7 @@ class DeliveryOrderController extends ApiController
     public function getDeliveryUserOrder(Request $request)
     {
         $user = auth()->user();
-        $orders = $user->orders()->whereNotIn('status', [
+        $orders = $user->delivering()->whereNotIn('status', [
             DeliveryStatus::CANCELLED->value,
             DeliveryStatus::PENDING->value,
             DeliveryStatus::COMPLETED->value,
