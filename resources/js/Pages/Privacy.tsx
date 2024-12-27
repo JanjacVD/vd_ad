@@ -142,10 +142,12 @@ export default function Privacy({}: PageProps<{
                     </li>
                     <li>
                         <strong>Email:</strong>{" "}
-                        <a href="mailto:vd-ad@example.com">vd-ad@example.com</a>
+                        <a href="vodiceapsolutnadostava@gmail.com">
+                            vodiceapsolutnadostava@gmail.com
+                        </a>
                     </li>
                     <li>
-                        <strong>Telefon:</strong> +385 XX XXX XXXX
+                        <strong>Telefon:</strong> +385 95 328 1111
                     </li>
                 </ul>
             </section>
