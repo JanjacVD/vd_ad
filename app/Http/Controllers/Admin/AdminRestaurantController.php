@@ -30,6 +30,7 @@ class AdminRestaurantController extends Controller
     {
         $res = Restaurant::findOrFail($id);
         $res->tags()->detach();
+        $res->employees()->detach();
 
         $res->delete();
     }
