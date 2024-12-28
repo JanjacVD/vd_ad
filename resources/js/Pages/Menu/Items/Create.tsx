@@ -18,6 +18,11 @@ const ItemsCreate = ({ auth, categoryId, item }: TProps) => {
             item
                 ? {
                       ...item,
+                      description: {
+                          en: item?.description?.en ?? "",
+                          hr: item?.description?.hr ?? "",
+                      },
+
                       img: null,
                   }
                 : {
