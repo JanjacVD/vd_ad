@@ -70,8 +70,10 @@ class User extends Authenticatable implements MustVerifyEmail, IMustVerifyMobile
 
     public function restaurants()
     {
-        return $this->hasMany(Restaurant::class);
+        return $this->hasMany(Restaurant::class)
+            ->orWhereIn('id', $this->employments->pluck('restaurant_id'));
     }
+
 
     public function address()
     {
