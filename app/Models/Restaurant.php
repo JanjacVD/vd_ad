@@ -42,6 +42,7 @@ class Restaurant extends Model
         return $this->belongsToMany(User::class, 'restaurant_user')->withPivot('adminRights');
     }
 
+
     public function invites()
     {
         return $this->hasMany(RestaurantInvite::class);

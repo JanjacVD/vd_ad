@@ -70,7 +70,10 @@ class User extends Authenticatable implements MustVerifyEmail, IMustVerifyMobile
 
     public function restaurants()
     {
-        return $this->hasMany(Restaurant::class);
+        return $this->hasMany(Restaurant::class)
+            ->whereHas('employees', function ($query) {
+                $query->where('adminRights', true);
+            });
     }
 
     public function address()
