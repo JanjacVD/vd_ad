@@ -8,8 +8,14 @@ type TProps = {
     data: Translatable;
     setData: (value: Translatable) => void;
     label: string;
+    optional?: boolean;
 };
-export const TranslationInputs = ({ data, label, setData }: TProps) => {
+export const TranslationInputs = ({
+    data,
+    label,
+    optional = false,
+    setData,
+}: TProps) => {
     const { t } = useTranslation();
     return (
         <div className="mt-5">
@@ -26,7 +32,7 @@ export const TranslationInputs = ({ data, label, setData }: TProps) => {
                             name={`${label}_${locale}`}
                             type="text"
                             value={data[locale]}
-                            required
+                            required={!optional}
                             className="mt-1 flex-1"
                             onChange={(e) =>
                                 setData({ ...data, [locale]: e.target.value })
