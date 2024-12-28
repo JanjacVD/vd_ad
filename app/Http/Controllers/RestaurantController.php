@@ -25,8 +25,7 @@ class RestaurantController extends Controller
         $restaurantsWithAdminRights = $user->employments()
             ->wherePivot('adminRights', true)
             ->get();
-        dd($restaurantsWithAdminRights);
-        $with = ['restaurants' => $restaurants];
+        $with = ['restaurants' => [...$restaurants, ...$restaurantsWithAdminRights]];
         return Inertia::render('Restaurant/Index', $with);
     }
 
