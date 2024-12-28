@@ -21,6 +21,7 @@ class RestaurantController extends Controller
     public function index()
     {
         $restaurants = request()->user()->restaurants;
+        $restaurants = request()->user()->employemnts;
         $with = ['restaurants' => $restaurants];
         return Inertia::render('Restaurant/Index', $with);
     }
