@@ -109,6 +109,7 @@ const ItemsCreate = ({ auth, categoryId, item }: TProps) => {
                 <TranslationInputs
                     data={data.description}
                     label={t("items.form.description")}
+                    optional
                     setData={(val) => setData("description", val)}
                 />
                 <div className="mt-5 ">
