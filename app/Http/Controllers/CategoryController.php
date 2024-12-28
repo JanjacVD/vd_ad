@@ -98,9 +98,9 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id, $catId)
     {
-        $category = Category::with('restaurant')->findOrFail($id);
+        $category = Category::with('restaurant')->findOrFail($catId);
         Gate::authorize('delete', arguments: $category);
         $category->delete();
     }
