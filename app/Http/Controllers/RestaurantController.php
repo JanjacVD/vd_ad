@@ -20,7 +20,12 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $restaurants = request()->user()->restaurants;
+        $user = request()->user();
+        $restaurants = $user->restaurants;
+        $restaurantsWithAdminRights = $user->employments()
+            ->wherePivot('adminRights', true)
+            ->get();
+        dd($restaurantsWithAdminRights);
         $with = ['restaurants' => $restaurants];
         return Inertia::render('Restaurant/Index', $with);
     }
