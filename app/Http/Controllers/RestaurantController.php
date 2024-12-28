@@ -141,6 +141,7 @@ class RestaurantController extends Controller
         // Detach tags (if applicable)
         $restaurant->tags()->detach();
         $restaurant->employees()->detach();
+        $restaurant->invites()->delete();
 
         // Then delete the restaurant
         $restaurant->delete();
