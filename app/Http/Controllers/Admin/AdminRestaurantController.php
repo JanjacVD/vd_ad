@@ -29,6 +29,8 @@ class AdminRestaurantController extends Controller
     public function destroy($id)
     {
         $res = Restaurant::findOrFail($id);
+        $res->tags()->detach();
+
         $res->delete();
     }
 }
