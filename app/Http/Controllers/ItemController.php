@@ -53,7 +53,6 @@ class ItemController extends Controller
             $description =
                 json_encode($validated['description']);
         }
-        dd($description);
         $category->items()->create([...$validated, 'name' => json_encode($validated['name']), 'description' => $description]);
         return Inertia::render('Menu/Items/Index', ['category' => new CategoryResource($category)]);
 
