@@ -114,6 +114,7 @@ class OrderController extends ApiController
             DeliveryStatus::CANCELLED->value,
             DeliveryStatus::COMPLETED->value,
         ])->get();
+        dd($userOrders);
         return $this->_OK(OrderResource::collection($userOrders));
     }
 }
