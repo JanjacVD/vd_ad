@@ -16,6 +16,6 @@ class OrderItemResource extends JsonResource
     public function toArray(Request $request): array
     {
         $item = Item::findOrFail($this->item_id);
-        return ['name' => json_decode($item->name), 'count' => $this->count, 'note' => $this->note];
+        return ['name' => json_decode($item->name), 'count' => $this->count, 'note' => $this->note, 'price' => $item->price];
     }
 }
