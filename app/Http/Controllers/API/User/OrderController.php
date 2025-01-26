@@ -45,11 +45,11 @@ class OrderController extends ApiController
             if (!$restaurant->delivery_fee) {
                 // If delivery fee is true and the current fee is 0, increment it by 5
                 if ($totalDeliveryFee == 0) {
-                    $totalDeliveryFee += 5;
+                    $totalDeliveryFee += 500;
                 }
                 // If delivery fee is true and the current fee is greater than 0, increment it by 2.5
                 else {
-                    $totalDeliveryFee += 2.5;
+                    $totalDeliveryFee += 250;
                 }
             }
         });

@@ -25,6 +25,12 @@ Route::get('/', function () {
 
 });
 
+Route::get('support', function () {
+    return Inertia::render('Support');
+
+});
+
+
 Route::get('/privacy-policy', function () {
     return Inertia::render('Privacy');
 });
