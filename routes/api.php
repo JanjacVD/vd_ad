@@ -29,6 +29,7 @@ Route::post('login', [AuthTokenController::class, 'login']);
 Route::post('register', [RegisterUserController::class, 'store']);
 Route::post('reset-password', [ApiPasswordResetLinkController::class, 'store'])->middleware('throttle:12,1');
 Route::post('logout', [AuthTokenController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('delete', [AuthTokenController::class, 'delete'])->middleware('auth:sanctum');
 
 
 Route::middleware(['auth:sanctum', 'throttle:12,1'])->group(function () {
@@ -41,12 +42,12 @@ Route::middleware(['auth:sanctum', 'throttle:12,1'])->group(function () {
 
 });
 
+Route::resource('restaurant', ResturantController::class)->only(['index', 'show']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('location', [LocationController::class, 'lookup']);
     Route::post('create-order', [OrderController::class, 'store']);
     Route::get('get-active-orders', [OrderController::class, 'getActiveOrders']);
-    Route::resource('restaurant', ResturantController::class)->only(['index', 'show']);
     Route::resource('tag', TagController::class)->only(['index']);
 
     Route::post('expo-token', [RegisterExpoTokenController::class, 'store']);

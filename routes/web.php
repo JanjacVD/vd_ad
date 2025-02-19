@@ -27,7 +27,6 @@ Route::get('/', function () {
 
 Route::get('support', function () {
     return Inertia::render('Support');
-
 });
 
 
