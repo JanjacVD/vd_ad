@@ -45,6 +45,7 @@ class AuthTokenController extends ApiController
     {
         $user = request()->user();
         $orders = $user->orders;
+        $adds = $user->address;
         foreach ($orders as $order) {
             $customs = $order->customOrder;
             if ($customs) {
@@ -53,7 +54,18 @@ class AuthTokenController extends ApiController
             }
             $order->delete();
         }
+        foreach ($adds as $address) {
+            $address->delete();
+        }
+        foreach ($adds as $address) {
+            $address->delete();
+        }
+        $user->employments()->detach(); // Remove all relations
         $user->delete();
+        $deliveries = $user->delivering;
+        foreach ($deliveries as $del) {
+            $del->update(['delivery_user_id' => null]);
+        }
         return $this->_OK_204();
 
     }
