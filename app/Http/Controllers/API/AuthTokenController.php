@@ -46,6 +46,10 @@ class AuthTokenController extends ApiController
         $user = request()->user();
         $orders = $user->orders;
         foreach ($orders as $order) {
+            $customs = $order->customOrder;
+            foreach ($customs as $custom) {
+                $custom->delete();
+            }
             $order->delete();
         }
         return $this->_OK_204();
