@@ -7,6 +7,7 @@ use App\Http\Resources\LoginResponseResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthTokenController extends ApiController
 {
@@ -43,30 +44,48 @@ class AuthTokenController extends ApiController
 
     public function delete(Request $request)
     {
-        $user = request()->user();
-        $orders = $user->orders;
-        $adds = $user->address;
-        foreach ($orders as $order) {
-            $customs = $order->customOrder;
-            if ($customs) {
-                $customs->delete();
+        try {
+            $user = request()->user();
 
+            if (!$user) {
+                Log::error('User not found during deletion process.');
+                return response()->json(['error' => 'User not found'], 404);
             }
-            $order->delete();
-        }
-        foreach ($adds as $address) {
-            $address->delete();
-        }
-        foreach ($adds as $address) {
-            $address->delete();
-        }
-        $user->employments()->detach(); // Remove all relations
-        $deliveries = $user->delivering;
-        foreach ($deliveries as $del) {
-            $del->update(['delivery_user_id' => null]);
-        }
-        $user->delete();
-        return $this->_OK_204();
 
+            // Delete orders and custom orders
+            foreach ($user->orders as $order) {
+                if ($order->customOrder) {
+                    $order->customOrder->delete();
+                }
+                $order->delete();
+            }
+
+            // Delete addresses
+            foreach ($user->address as $address) {
+                $address->delete();
+            }
+
+            // Remove employment relations
+            $user->employments()->detach();
+
+            // Update delivery assignments
+            foreach ($user->delivering as $del) {
+                $del->update(['delivery_user_id' => null]);
+            }
+
+            // Delete user
+            $user->delete();
+
+            Log::info("User {$user->id} deleted successfully.");
+
+            return $this->_OK_204();
+        } catch (\Exception $e) {
+            Log::error('Error deleting user: ' . $e->getMessage(), [
+                'user_id' => $user->id ?? 'N/A',
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json(['error' => 'An error occurred while deleting the user'], 500);
+        }
     }
 }
