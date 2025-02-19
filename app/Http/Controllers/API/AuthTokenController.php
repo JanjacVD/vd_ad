@@ -64,6 +64,7 @@ class AuthTokenController extends ApiController
             foreach ($user->address as $address) {
                 $address->delete();
             }
+            dd(123);
 
             // Remove employment relations
             $user->employments()->detach();
