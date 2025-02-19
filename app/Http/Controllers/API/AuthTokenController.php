@@ -53,6 +53,7 @@ class AuthTokenController extends ApiController
             }
             $order->delete();
         }
+        $user->delete();
         return $this->_OK_204();
 
     }
