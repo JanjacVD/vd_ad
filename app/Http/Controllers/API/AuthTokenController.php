@@ -61,11 +61,11 @@ class AuthTokenController extends ApiController
             $address->delete();
         }
         $user->employments()->detach(); // Remove all relations
-        $user->delete();
         $deliveries = $user->delivering;
         foreach ($deliveries as $del) {
             $del->update(['delivery_user_id' => null]);
         }
+        $user->delete();
         return $this->_OK_204();
 
     }
