@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\LoginResponseResource;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -71,6 +72,20 @@ class AuthTokenController extends ApiController
             // Update delivery assignments
             foreach ($user->delivering as $del) {
                 $del->update(['delivery_user_id' => null]);
+            }
+
+            $expoTokens = $user->expoTokens;
+
+            foreach ($expoTokens as $del) {
+                $del->delete();
+            }
+            $firstDel = User::where('isSuperAdmin', true)->first();
+            foreach ($user->restaurants as $res) {
+                if ($firstDel) {
+                    $res->update(['user_id' => $firstDel->id]);
+                } else {
+                    $res->delete();
+                }
             }
 
             $user->tokens()->delete();
