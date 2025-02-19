@@ -72,7 +72,8 @@ class AuthTokenController extends ApiController
             foreach ($user->delivering as $del) {
                 $del->update(['delivery_user_id' => null]);
             }
-            dd(123);
+
+            $user->tokens()->delete();
 
             // Delete user
             $user->delete();
