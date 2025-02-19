@@ -43,7 +43,9 @@ class AuthTokenController extends ApiController
 
     public function delete(Request $request)
     {
-        $request->user()->delete();
+        $user = request()->user();
+        $orders = $user->orders;
+        return $orders;
         return $this->_OK_204();
 
     }
